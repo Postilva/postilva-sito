@@ -1,5 +1,6 @@
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/font/ibm-plex-mono-latin-500.woff2) format('woff2')}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/font/ibm-plex-mono-latin-700.woff2) format('woff2')}
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(/font/anton-latin-400.woff2) format('woff2')}
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/font/space-grotesk-latin.woff2) format('woff2')}
 html{-webkit-text-size-adjust:100%} body{margin:0} img{max-width:100%} [hidden]{display:none!important}
 /* Impianto: lo stesso del sito delle bonifiche ("Notte industriale"): un solo tema scuro, foto in apertura,
@@ -33,7 +34,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .topbar .in { min-height: var(--bar-h); max-width: 1080px; margin: 0 auto; display: flex; align-items: center; gap: 12px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .brand { font: 700 1.05rem/1 var(--f-body); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
-.brand span { color: var(--rosso-vivo); }
+.brand span.firma { color: var(--ink); }
 .topbar nav { margin-left: auto; display: flex; gap: 2px; overflow-x: auto; }
 .topbar nav a { white-space: nowrap; padding: 10px 12px; border-radius: 999px; font: 600 0.9rem/1 var(--f-body); color: var(--ink-2); text-decoration: none; }
 .topbar nav a[aria-current="page"] { background: var(--pill); color: var(--ink); }
@@ -368,7 +369,12 @@ a.riq:hover { background: var(--surface-2); }
 
 /* Marchio */
 .brand { display: inline-flex; align-items: center; gap: 8px; }
-.brand b { font-weight: 700; letter-spacing: 0.04em; } /* scritta come nel logo: «POST ILVA» (Drive, 1785805574649.png) */
+/* Firma del marchio «Per Taranto / POSTILVA» (brand.md), scelta da Antonio il 18/11/2026: POSTILVA in Anton, sopra «Per Taranto» in rosso */
+.firma { display: flex; flex-direction: column; gap: 3px; }
+.firma small { font: 500 0.6rem/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--rosso-vivo); }
+.firma b { font: 400 1.5rem/1 "Anton", Impact, var(--f-body); letter-spacing: 0.03em; }
+.piede .firma b { font-size: 1.9rem; }
+.piede .firma small { font-size: 0.68rem; }
 .marchio { height: 40px; width: auto; flex: none; color: var(--ink); }
 .piede .brand .marchio { height: 52px; }
 
