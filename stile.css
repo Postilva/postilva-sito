@@ -371,3 +371,9 @@ a.riq:hover { background: var(--surface-2); }
 .brand b { font-weight: 700; letter-spacing: 0.04em; } /* scritta come nel logo: «POST ILVA» (Drive, 1785805574649.png) */
 .marchio { height: 40px; width: auto; flex: none; color: var(--ink); }
 .piede .brand .marchio { height: 52px; }
+
+/* Telefono e tablet stretto (18/11/2026): nel menù restano Tavoli e Partecipa, così il bottone si vede; Chi siamo, Progetti e Trasparenza sono nel piede */
+@media (max-width: 760px) {
+  .topbar nav a[href$="associazione/"], .topbar nav a[href$="#progetti"], .topbar nav a[href$="trasparenza/"] { display: none; }
+  .marchio { height: 34px; }
+}
