@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://postilva.it/sitemap.xml
