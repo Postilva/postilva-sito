@@ -1,3 +1,15 @@
 {
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/mappa-spazi/",
+      "destination": "/spazi/",
+      "permanent": false
+    },
+    {
+      "source": "/mar-piccolo/",
+      "destination": "/verde/",
+      "permanent": false
+    }
+  ]
 }
