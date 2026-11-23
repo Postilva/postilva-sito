@@ -397,7 +397,7 @@ a.riq:hover { background: var(--surface-2); }
 .tfoto .tag .ico { width: 16px; height: 16px; color: var(--rosso-vivo); }
 
 /* «In primo piano» in home (20/11/2026): fascia rossa al posto dei numeri; solo rosso, bianco e i font già in uso. */
-.primo-piano { background: var(--rosso); color: #ffffff; padding-block: 34px; }
+.primo-piano { background: #212D57; color: #ffffff; padding-block: 34px; } /* blu Postilva (Antonio, 23/11/2026) */
 .primo-piano .eyebrow { color: rgba(255, 255, 255, 0.85); }
 .pp-et { display: flex; align-items: center; gap: 8px; }
 .pp-et .ico { width: 16px; height: 16px; }
@@ -405,10 +405,25 @@ a.riq:hover { background: var(--surface-2); }
 .pp-tit { font: 700 clamp(1.9rem, 7vw, 2.8rem)/1.05 var(--f-body); letter-spacing: -0.03em; }
 .pp-tit span { color: #ffffff; font-weight: 400; }
 .pp-testo { margin-top: 12px; font-size: 1.05rem; line-height: 1.45; max-width: 52ch; }
-.pp-btn { margin-top: 18px; background: #ffffff; color: var(--rosso); }
+.pp-btn { margin-top: 18px; background: #ffffff; color: #212D57; }
 .pp-prima ul { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid rgba(255, 255, 255, 0.35); }
 .pp-prima li { border-bottom: 1px solid rgba(255, 255, 255, 0.35); }
 .pp-prima a { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px 0; color: #ffffff; text-decoration: none; font-weight: 600; }
 .pp-prima .pp-data { font: 700 0.72rem/1 var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
 .pp-prima .ico { width: 18px; height: 18px; }
 @media (min-width: 760px) { .primo-piano { padding-block: 44px; } .pp-griglia { grid-template-columns: 1.4fr 1fr; align-items: end; gap: 48px; } }
+/* «In primo piano» a scorrimento (23/11/2026) */
+.pp-scorre { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.pp-scorre::-webkit-scrollbar { display: none; }
+.pp-scorre:focus-visible { outline: 3px solid #ffffff; outline-offset: 6px; border-radius: 6px; }
+.pp-scheda { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; padding-right: 8px; }
+.pp-scheda .pp-tit { margin-top: 12px; max-width: 26ch; }
+.pp-nav { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+.pp-freccia { width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); background: transparent; color: #ffffff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
+.pp-freccia:disabled { opacity: 0.35; cursor: default; }
+.pp-freccia:not(:disabled):hover { background: rgba(255, 255, 255, 0.12); }
+.pp-punti { display: flex; gap: 6px; }
+.pp-punti button { width: 22px; height: 22px; padding: 5px; border: 0; background: none; cursor: pointer; }
+.pp-punti button::before { content: ""; display: block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #ffffff; }
+.pp-punti button[aria-current="true"]::before { background: #ffffff; }
+
