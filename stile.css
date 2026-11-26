@@ -427,3 +427,8 @@ a.riq:hover { background: var(--surface-2); }
 .pp-punti button::before { content: ""; display: block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #ffffff; }
 .pp-punti button[aria-current="true"]::before { background: #ffffff; }
 
+
+/* Titoli grossi della home in Anton, come il logo (26/11/2026): apertura e titoli delle fasce. Anton ha un solo peso (400). */
+[data-vista="home"] .hero h1, .pagina-home .hero h1,
+[data-vista="home"] .tit, .pagina-home .tit { font-family: "Anton", Impact, var(--f-body); font-weight: 400; letter-spacing: 0.005em; line-height: 1.02; }
+[data-vista="home"] .hero h1, .pagina-home .hero h1 { line-height: 1; }
