@@ -432,3 +432,17 @@ a.riq:hover { background: var(--surface-2); }
 [data-vista="home"] .hero h1, .pagina-home .hero h1,
 [data-vista="home"] .tit, .pagina-home .tit { font-family: "Anton", Impact, var(--f-body); font-weight: 400; letter-spacing: 0.005em; line-height: 1.02; }
 [data-vista="home"] .hero h1, .pagina-home .hero h1 { line-height: 1; }
+
+/* «In primo piano» con la foto del progetto (Antonio, 26/11/2026): sul telefono la foto sopra, sul computer a fianco */
+.pp-scheda { display: grid; gap: 16px; align-content: start; }
+.pp-foto { margin: 0; display: grid; gap: 6px; }
+.pp-foto > a { display: block; border-radius: var(--r); overflow: hidden; aspect-ratio: 16 / 10; background: rgba(255, 255, 255, 0.08); }
+.pp-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pp-foto .credit { color: rgba(255, 255, 255, 0.7); }
+.pp-foto .credit a { color: inherit; }
+.pp-scheda .pp-corpo .pp-et { margin-top: 0; }
+@media (min-width: 760px) {
+  .pp-scheda { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; align-items: center; }
+  .pp-scheda .pp-corpo { order: -1; }
+  .pp-foto > a { aspect-ratio: 4 / 3; }
+}
