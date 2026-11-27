@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cantiere verde · Postilva</title>
+<meta name="description" content="Cantiere verde di Postilva: gli interventi pubblici su verde, coste e bonifiche a Taranto, lo stato dei lavori visto sul posto e le proposte dei cittadini.">
+<link rel="canonical" href="https://www.postilva.it/cantiere-verde/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Postilva">
+<meta property="og:title" content="Cantiere verde · Postilva">
+<meta property="og:description" content="Gli interventi pubblici sul verde a Taranto: dove sono, quanti soldi, a che punto sono. E gli spazi da rivalorizzare proposti dai cittadini.">
+<meta property="og:url" content="https://www.postilva.it/cantiere-verde/">
+<meta property="og:image" content="https://www.postilva.it/img/anteprime/verde.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<!-- Caratteri e MapLibre dal sito stesso: nessuna richiesta a servizi esterni (come il resto di postilva.it). -->
+<style>
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/font/ibm-plex-mono-latin-500.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/font/ibm-plex-mono-latin-700.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/font/space-grotesk-latin.woff2) format('woff2')}
+[hidden]:not([hidden=until-found i]){display:none!important}
+</style>
+<script src="maplibre-gl.js"></script>
+<style>
+/* Cantiere verde · Interventi sul Mar Piccolo.
+   Impianto «Notte industriale» del sito di Postilva: un solo tema scuro, Space Grotesk per i testi,
+   IBM Plex Mono per titoletti e dati, rosso per l'azione e il dato principale, blu notte per il mare.
+   Layout: barra fissa con le sezioni; Mappa = mappa e pannello affiancati; le altre viste a tutta larghezza. */
+:root {
+  color-scheme: dark;
+  --bg: #0b0b0c; --surface: #151517; --surface-2: #1f1f22; --line: #27272a; --line-2: #3f3f46;
+  --ink: #f4f4f5; --ink-2: #a1a1aa; --ink-3: #8b8b94;
+  --rosso: #CC1417; --rosso-vivo: #ef3b3d; --rosso-soft: #2a0d0e; --rosso-bordo: #5c1a1c; --rosso-testo: #ff9b9c;
+  --blu: #212D57; --blu-chiaro: #8ea0e6; --blu-soft: #141b33; --blu-bordo: #2b3866;
+  --verde: #4fbf85; --verde-soft: #0f2419; --verde-bordo: #1f4a33; --verde-testo: #7fe0ad;
+  --ocra: #e0a43c; --ocra-soft: #2a1f0c; --ocra-bordo: #5a4317; --ocra-testo: #f4c46d;
+  --terra: #141416; --mare: #1a2442;
+  --f-body: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --r: 18px; --r-s: 12px; --ombra: 0 0 0 1px var(--line);
+  --gl: max(16px, env(safe-area-inset-left, 0px)); --gr: max(16px, env(safe-area-inset-right, 0px));
+  --max: 1320px; --alto: 112px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--alto) + 12px); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 var(--f-body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+main { min-height: 70vh; padding-bottom: 48px; }
+.gutter { padding-left: var(--gl); padding-right: var(--gr); max-width: var(--max); margin: 0 auto; width: 100%; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.12; letter-spacing: -0.02em; text-wrap: balance; }
+h1 { font-size: clamp(1.9rem, 6vw, 2.9rem); letter-spacing: -0.04em; line-height: 1.02; }
+h2 { font-size: 1.4rem; letter-spacing: -0.025em; }
+h3 { font-size: 1.08rem; }
+h1:focus, h2:focus { outline: none; }
+p { margin: 0; }
+p, li { max-width: 72ch; }
+a { color: inherit; text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+a:hover { text-decoration-color: var(--rosso-vivo); }
+:focus-visible { outline: 3px solid var(--rosso-vivo); outline-offset: 2px; border-radius: 6px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+.nota { color: var(--ink-3); font-size: .88rem; }
+.mono { font-family: var(--f-mono); }
+
+/* barra */
+.testata { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(11, 11, 12, .9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.testata-riga { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; padding-bottom: 2px; }
+.marchio { display: flex; align-items: center; gap: 10px; text-decoration: none; min-width: 0; }
+.marchio img { width: 38px; height: 38px; border-radius: 8px; flex: none; }
+.marchio span { display: flex; flex-direction: column; min-width: 0; }
+.marchio b { font-size: 1.02rem; letter-spacing: -.02em; }
+.marchio small { font: 500 .66rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.interna { font: 700 .66rem/1 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; background: var(--rosso-soft); color: var(--rosso-testo); box-shadow: 0 0 0 1px var(--rosso-bordo); white-space: nowrap; }
+.menu-box { overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+.menu-box::-webkit-scrollbar { display: none; }
+.menu { display: flex; gap: 2px; white-space: nowrap; margin-left: -8px; }
+.menu a { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; border-radius: 999px; color: var(--ink-2); text-decoration: none; font: 600 .9rem/1 var(--f-body); }
+.menu a[aria-current="page"] { background: rgba(255, 255, 255, .12); color: var(--ink); }
+.menu a:hover { color: var(--ink); }
+.menu .n { background: var(--rosso); color: #fff; font: 700 .68rem/1 var(--f-mono); min-width: 20px; height: 20px; padding: 0 6px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; }
+
+/* elementi comuni */
+[hidden] { display: none !important; }
+.vista { padding-top: 24px; }
+.occhiello { font: 500 .72rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--rosso-vivo); display: flex; align-items: center; gap: 12px; }
+.occhiello::before { content: ""; width: 32px; height: 3px; background: var(--rosso-vivo); flex: none; }
+.intro { color: var(--ink-2); font-size: 1.06rem; max-width: 70ch; }
+.stack { display: grid; gap: 14px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 700 .72rem/1.2 var(--f-body); padding: 5px 10px; border-radius: 999px; white-space: nowrap; background: var(--surface-2); color: var(--ink-2); }
+.pill.rosso { background: var(--rosso-soft); color: var(--rosso-testo); box-shadow: 0 0 0 1px var(--rosso-bordo); }
+.pill.ocra { background: var(--ocra-soft); color: var(--ocra-testo); box-shadow: 0 0 0 1px var(--ocra-bordo); }
+.pill.verde { background: var(--verde-soft); color: var(--verde-testo); box-shadow: 0 0 0 1px var(--verde-bordo); }
+.pill.blu { background: var(--blu-soft); color: var(--blu-chiaro); box-shadow: 0 0 0 1px var(--blu-bordo); }
+.chip { font: 700 .64rem/1.3 var(--f-mono); letter-spacing: .05em; text-transform: uppercase; padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.chip.comune { background: var(--blu-soft); color: var(--blu-chiaro); box-shadow: 0 0 0 1px var(--blu-bordo); }
+.chip.commissario { background: var(--rosso-soft); color: var(--rosso-testo); box-shadow: 0 0 0 1px var(--rosso-bordo); }
+.chip.jtf { background: var(--rosso); color: #fff; }
+.chip.altri { background: var(--surface-2); color: var(--ink-2); }
+.tipo { display: inline-block; font: 700 .62rem/1.3 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px; white-space: nowrap; }
+.tipo.atto { background: var(--verde-soft); color: var(--verde-testo); box-shadow: 0 0 0 1px var(--verde-bordo); }
+.tipo.ente { background: var(--blu-soft); color: var(--blu-chiaro); box-shadow: 0 0 0 1px var(--blu-bordo); }
+.tipo.perc { background: var(--ocra-soft); color: var(--ocra-testo); box-shadow: 0 0 0 1px var(--ocra-bordo); }
+.tipo.stampa { background: var(--surface-2); color: var(--ink-2); box-shadow: 0 0 0 1px var(--line-2); }
+.rif { font: 500 .72em/1 var(--f-mono); color: var(--blu-chiaro); text-decoration: none; margin-left: 2px; vertical-align: .1em; white-space: nowrap; }
+.rif:hover { text-decoration: underline; }
+.bottone { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 18px; background: var(--rosso); color: #fff; border: 0; border-radius: 14px; font: 700 .95rem/1.2 var(--f-body); text-decoration: none; cursor: pointer; }
+.bottone:hover { background: #b51114; }
+.bottone.sec { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .3); }
+.bottone.sec:hover { background: var(--surface-2); }
+.bottone.pic { min-height: 36px; padding: 0 12px; font-size: .86rem; border-radius: 11px; }
+.pillole { display: flex; flex-wrap: wrap; gap: 6px; }
+.pillola { min-height: 36px; padding: 4px 13px; background: var(--surface); color: var(--ink-2); border: 0; box-shadow: var(--ombra); font: 600 .86rem/1.2 var(--f-body); cursor: pointer; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
+.pillola:hover { color: var(--ink); background: var(--surface-2); }
+.pillola[aria-pressed="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+.pillola .c { font: 500 .72rem/1 var(--f-mono); opacity: .75; }
+.riquadro { background: var(--surface); box-shadow: var(--ombra); border-radius: var(--r); padding: 16px 18px; }
+.tabella { width: 100%; overflow-x: auto; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 2px 16px; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: 10px 14px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+th { font: 500 .64rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+td.num { font: 700 .78rem/1.5 var(--f-mono); color: var(--ink-3); white-space: nowrap; }
+.campo { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.campo label { font: 500 .66rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.campo input, .campo select, .campo textarea { background: var(--bg); border: 0; box-shadow: var(--ombra); border-radius: 10px; padding: 8px 10px; min-height: 40px; width: 100%; color: var(--ink); font-size: 15px; }
+.campo select option { background: var(--surface); }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; box-shadow: 0 0 0 2px var(--rosso-vivo); }
+
+/* mappa */
+.lavoro { display: grid; grid-template-columns: minmax(0, 1fr); }
+.barra-filtri { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding-top: 14px; padding-bottom: 12px; }
+.barra-filtri .et { font: 500 .66rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.mappa-box { position: relative; height: clamp(320px, 52vh, 520px); background: var(--mare); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
+.mappa-msg { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; text-align: center; padding: 16px; background: var(--terra); color: var(--ink-2); max-width: none; font: 500 .8rem/1.4 var(--f-mono); }
+.legenda { list-style: none; margin: 0; padding-top: 10px; padding-bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .8rem; color: var(--ink-3); }
+.legenda li { display: inline-flex; align-items: center; gap: 6px; max-width: none; }
+.leg-area { width: 16px; height: 12px; border-radius: 3px; display: inline-block; }
+.leg-area.jtf { background: rgba(239, 59, 61, .45); box-shadow: inset 0 0 0 1.5px #ef3b3d; }
+.leg-area.altri { background: rgba(142, 160, 230, .4); box-shadow: inset 0 0 0 1.5px #8ea0e6; }
+.leg-area.ind { background: transparent; box-shadow: inset 0 0 0 1.5px #a1a1aa; border: 1px dashed #a1a1aa; }
+.segno { width: 30px; height: 30px; padding: 0; border: 2px solid var(--bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font: 700 12px/1 var(--f-mono); color: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, .5); transition: transform .15s; }
+.segno.jtf { background: var(--rosso); border-radius: 50%; }
+.segno.altri { background: #3b4a86; border-radius: 8px; }
+.segno[aria-pressed="true"] { transform: scale(1.3); z-index: 3; box-shadow: 0 0 0 3px var(--ink); }
+.segno.spento { opacity: .25; }
+.pannello { padding-top: 14px; min-width: 0; }
+.elenco { list-style: none; margin: 0; padding: 0; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); overflow: hidden; }
+.elenco li { max-width: none; }
+.elenco li + li { border-top: 1px solid var(--line); }
+.elenco button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 12px 14px; width: 100%; }
+.elenco button:hover, .elenco button:focus-visible { background: var(--surface-2); }
+.elenco button[aria-pressed="true"] { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--rosso-vivo); }
+.elenco .tit { font-weight: 700; display: block; line-height: 1.3; }
+.elenco .meta { color: var(--ink-3); font-size: .8rem; display: block; margin-top: 2px; }
+.mini { width: 24px; height: 24px; font-size: 10px; box-shadow: none; border-width: 0; cursor: default; flex: none; transform: none !important; }
+.anteprima { margin-top: 12px; }
+.anteprima .lede { font-weight: 700; margin: 8px 0; }
+.dati { display: grid; grid-template-columns: minmax(0, 1fr); margin: 8px 0; }
+.dati > div { padding: 8px 0; border-top: 1px solid var(--line); }
+.dati dt { font: 500 .64rem/1.5 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.dati dd { margin: 2px 0 0; font-weight: 600; line-height: 1.35; }
+.aree-lista { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 4px; font-size: .84rem; color: var(--ink-2); }
+
+/* elenco interventi */
+.schede-griglia { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 10px; }
+.schede-griglia a { display: grid; gap: 8px; height: 100%; padding: 16px; border-radius: var(--r); background: var(--surface); box-shadow: var(--ombra); text-decoration: none; align-content: start; }
+.schede-griglia a:hover { background: var(--surface-2); box-shadow: 0 0 0 1px var(--line-2); }
+.schede-griglia .testa { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.schede-griglia .cod { font: 700 .78rem/1 var(--f-mono); color: var(--rosso-vivo); letter-spacing: .05em; }
+.schede-griglia b { font-size: 1.12rem; letter-spacing: -.02em; line-height: 1.2; }
+.schede-griglia .s { color: var(--ink-2); font-size: .9rem; line-height: 1.4; }
+.schede-griglia .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.schede-griglia img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; border-radius: 10px; opacity: .9; max-width: 100%; }
+
+/* scheda */
+.scheda-testa { display: grid; gap: 10px; padding-top: 8px; }
+.scheda-nav { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.scheda-nav a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; font: 500 .74rem/1 var(--f-mono); background: var(--surface); box-shadow: var(--ombra); color: var(--ink-2); text-decoration: none; }
+.scheda-nav a:hover { color: var(--ink); background: var(--surface-2); }
+.scheda-testa .cod { font: 700 .8rem/1 var(--f-mono); letter-spacing: .06em; color: var(--rosso-vivo); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.scheda-testa .sotto { color: var(--ink-2); font-size: 1.06rem; }
+.scheda-testa .lede { font-weight: 700; font-size: 1.08rem; max-width: 70ch; }
+.agg { font: 500 .72rem/1.4 var(--f-mono); color: var(--ink-3); }
+.corpo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 26px; margin-top: 22px; }
+.col { display: grid; gap: 26px; align-content: start; min-width: 0; }
+.blocco { display: grid; gap: 10px; min-width: 0; }
+.blocco h4 { font: 500 .68rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+.blocco ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.blocco li::marker { color: var(--rosso-vivo); }
+.cv-box { background: var(--surface); border-radius: var(--r); box-shadow: inset 3px 0 0 var(--rosso), var(--ombra); padding: 16px 18px; display: grid; gap: 8px; }
+.inbreve { margin: 0; display: grid; border-radius: var(--r); background: var(--surface); box-shadow: var(--ombra); padding: 4px 16px; }
+.inbreve > div { padding: 10px 0; }
+.inbreve > div + div { border-top: 1px solid var(--line); }
+.inbreve dt { font: 500 .64rem/1.5 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.inbreve dd { margin: 2px 0 0; font-weight: 600; line-height: 1.35; }
+.galleria { display: grid; gap: 12px; }
+.galleria figure { margin: 0; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); overflow: hidden; }
+.galleria img { display: block; width: 100%; height: auto; max-width: 100%; background: #fff; cursor: zoom-in; }
+.galleria figcaption { padding: 10px 14px; font-size: .86rem; color: var(--ink-2); }
+.cronologia { list-style: none; padding: 0 0 0 18px; margin: 4px 0 0; border-left: 2px solid var(--line-2); display: grid; gap: 14px; }
+.cronologia li { position: relative; max-width: none; }
+.cronologia li::before { content: ""; position: absolute; left: -25px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--rosso-vivo); box-shadow: 0 0 0 3px var(--bg); }
+.cronologia li.scadenza::before { background: var(--bg); box-shadow: 0 0 0 2px var(--ocra); border-radius: 2px; transform: rotate(45deg); }
+.cronologia li.futuro::before { background: var(--bg); box-shadow: 0 0 0 2px var(--ink-3); }
+.cronologia .q { display: block; font: 700 .74rem/1.4 var(--f-mono); letter-spacing: .03em; color: var(--ink); }
+.cronologia .t { color: var(--ink-2); font-size: .94rem; }
+.doc-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.doc-lista li { max-width: none; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px 14px; background: var(--surface); border-radius: var(--r-s); box-shadow: var(--ombra); }
+.doc-lista .n { font: 700 .78rem/1.5 var(--f-mono); color: var(--blu-chiaro); }
+.doc-lista .e { color: var(--ink-3); font-size: .82rem; }
+.doc-lista a { overflow-wrap: anywhere; }
+.serve { display: grid; gap: 8px; }
+.serve-r { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 12px 14px; background: var(--surface); border-radius: var(--r-s); box-shadow: var(--ombra); }
+.serve-r .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.serve-r .cod { font: 700 .74rem/1 var(--f-mono); color: var(--ink-3); }
+.serve-r .chi { font-size: .84rem; color: var(--ink-2); }
+
+/* cronistoria generale */
+.tempo-box { overflow-x: auto; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); margin-top: 14px; }
+.tempo { min-width: 880px; position: relative; }
+.t-riga { display: grid; grid-template-columns: 230px minmax(0, 1fr); border-bottom: 1px solid var(--line); min-height: 46px; }
+.t-riga:last-child { border-bottom: 0; }
+.t-riga.intesta { min-height: 30px; background: var(--surface-2); }
+.t-nome { padding: 8px 12px; display: flex; gap: 8px; align-items: center; font-size: .86rem; font-weight: 600; border-right: 1px solid var(--line); min-width: 0; }
+.t-nome a { text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.t-asse { position: relative; }
+.t-anno { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--line); font: 500 .68rem/1 var(--f-mono); color: var(--ink-3); padding: 8px 0 0 5px; }
+.t-oggi { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--rosso-vivo); z-index: 2; }
+.t-oggi span { position: absolute; top: 3px; left: 4px; font: 700 .62rem/1 var(--f-mono); background: var(--rosso); color: #fff; padding: 3px 6px; border-radius: 999px; white-space: nowrap; }
+.tappa { position: absolute; top: 13px; width: 20px; height: 20px; margin-left: -10px; padding: 0; border: 0; background: none; cursor: pointer; z-index: 3; }
+.tappa i { display: block; width: 12px; height: 12px; margin: 4px; border-radius: 50%; background: var(--rosso-vivo); box-shadow: 0 0 0 2px var(--surface); }
+.tappa.altri i { background: var(--blu-chiaro); }
+.tappa.scadenza i { border-radius: 2px; transform: rotate(45deg); background: var(--surface); box-shadow: 0 0 0 2px var(--ocra); }
+.tappa:hover i, .tappa:focus-visible i { outline: 3px solid var(--ink); outline-offset: 2px; }
+.tappa-info { min-height: 54px; padding: 12px 16px; margin-top: 8px; }
+
+/* richieste */
+.conteggi { list-style: none; margin: 14px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 8px; }
+.conteggi li { padding: 14px; max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); display: grid; gap: 4px; }
+.conteggi b { font: 700 1.8rem/1 var(--f-body); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.conteggi span { font-size: .82rem; color: var(--ink-2); }
+.conteggi .verde b { color: var(--verde); } .conteggi .ocra b { color: var(--ocra); } .conteggi .blu b { color: var(--blu-chiaro); } .conteggi .rosso b { color: var(--rosso-vivo); }
+.rich-lista { display: grid; gap: 8px; margin-top: 12px; }
+.rich { background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); }
+.rich > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 12px; }
+.rich > summary::-webkit-details-marker { display: none; }
+.rich[open] { box-shadow: 0 0 0 1.5px var(--line-2); }
+.rich .cod { font: 700 .8rem/1.5 var(--f-mono); color: var(--ink-3); grid-row: span 2; }
+.rich .doc { font-weight: 700; line-height: 1.35; }
+.rich .riga { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: .82rem; color: var(--ink-2); }
+.rich .dentro { padding: 0 14px 14px 82px; display: grid; gap: 10px; }
+.rich .form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 8px; align-items: end; }
+.pri { font: 700 .62rem/1.3 var(--f-mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
+.pri.alta { background: var(--rosso-soft); color: var(--rosso-testo); }
+.pri.media { background: var(--ocra-soft); color: var(--ocra-testo); }
+.pri.bassa { background: var(--surface-2); color: var(--ink-2); }
+.esito-msg { font: 500 .76rem/1.4 var(--f-mono); color: var(--verde); }
+.pec { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+#testo-pec { font: .84rem/1.55 var(--f-mono); min-height: 320px; background: var(--bg); }
+.scelte { list-style: none; padding: 0; margin: 6px 0; max-height: 280px; overflow-y: auto; background: var(--bg); border-radius: var(--r-s); box-shadow: var(--ombra); }
+.scelte li { padding: 8px 12px; max-width: none; }
+.scelte li + li { border-top: 1px solid var(--line); }
+.scelte label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: .88rem; }
+.scelte input { width: 18px; height: 18px; margin: 2px 0 0; flex: none; accent-color: var(--rosso); }
+
+/* archivio */
+.arch { display: grid; gap: 8px; margin-top: 12px; }
+.arch-r { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 12px 14px; background: var(--surface); border-radius: var(--r-s); box-shadow: var(--ombra); }
+.arch-r .top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font: 500 .76rem/1.4 var(--f-mono); color: var(--ink-3); }
+.arch-r a.t { font-weight: 700; overflow-wrap: anywhere; }
+.arch-r .usi { font-size: .82rem; color: var(--ink-2); }
+.arch-r .usi a { color: var(--ink-2); }
+.foto-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 10px; margin-top: 12px; }
+.foto-griglia figure { margin: 0; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); overflow: hidden; }
+.foto-griglia img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #fff; cursor: zoom-in; max-width: 100%; }
+.foto-griglia figcaption { padding: 8px 12px; font-size: .82rem; color: var(--ink-2); }
+
+/* testo (tavolo, metodo) */
+.testo { display: grid; gap: 14px; }
+.testo h2 { margin-top: 18px; }
+.testo ul { padding-left: 20px; display: grid; gap: 6px; margin: 0; }
+.testo li::marker { color: var(--rosso-vivo); }
+.tre { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 10px; margin: 0; padding: 0 !important; list-style: none; }
+.tre li { padding: 16px; max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); color: var(--ink-2); font-size: .94rem; }
+.tre b { display: block; font: 700 1.1rem/1.2 var(--f-body); color: var(--rosso-vivo); margin-bottom: 6px; }
+
+/* zoom immagine */
+.lente { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .92); display: grid; place-items: center; padding: calc(16px + env(safe-area-inset-top, 0px)) var(--gr) calc(16px + env(safe-area-inset-bottom, 0px)) var(--gl); cursor: zoom-out; }
+.lente img { max-width: 100%; max-height: 100%; background: #fff; border-radius: 8px; }
+.lente button { position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); }
+
+.piede { border-top: 1px solid var(--line); padding-block: 26px calc(26px + env(safe-area-inset-bottom, 0px)); font-size: .84rem; color: var(--ink-3); }
+.piede p + p { margin-top: 6px; }
+
+/* MapLibre, regole minime */
+.maplibregl-map { overflow: hidden; position: relative; -webkit-tap-highlight-color: rgb(0 0 0/0); font-family: var(--f-body); }
+.maplibregl-canvas { left: 0; position: absolute; top: 0; }
+.maplibregl-canvas-container.maplibregl-interactive { cursor: grab; user-select: none; -webkit-user-select: none; }
+.maplibregl-canvas-container.maplibregl-touch-zoom-rotate, .maplibregl-canvas-container.maplibregl-touch-zoom-rotate .maplibregl-canvas { touch-action: pan-x pan-y; }
+.maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures, .maplibregl-canvas-container.maplibregl-touch-drag-pan.maplibregl-cooperative-gestures .maplibregl-canvas { touch-action: pan-x pan-y; }
+.maplibregl-ctrl-top-right, .maplibregl-ctrl-bottom-right { pointer-events: none; position: absolute; z-index: 2; right: 0; }
+.maplibregl-ctrl-top-right { top: 0; } .maplibregl-ctrl-bottom-right { bottom: 0; }
+.maplibregl-ctrl { clear: both; pointer-events: auto; }
+.maplibregl-ctrl-top-right .maplibregl-ctrl { float: right; margin: 10px 10px 0 0; }
+.maplibregl-ctrl-group { background: var(--surface); border-radius: 12px; box-shadow: var(--ombra); overflow: hidden; }
+.maplibregl-ctrl-group button { display: block; width: 44px; height: 44px; padding: 0; border: 0; background: var(--surface); color: var(--ink); cursor: pointer; font: 600 22px/1 var(--f-body); }
+.maplibregl-ctrl-group button:hover { background: var(--surface-2); }
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--line); }
+.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon::before { content: "+"; }
+.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon::before { content: "−"; }
+.maplibregl-ctrl-attrib { font: 500 10px/1.4 var(--f-mono); background: rgba(11, 11, 12, .85); color: var(--ink-2); padding: 3px 8px; border-radius: 8px 0 0 0; }
+.maplibregl-ctrl-attrib a { color: var(--ink-2); }
+.maplibregl-ctrl-attrib-button { display: none; }
+.maplibregl-marker { position: absolute; top: 0; left: 0; will-change: transform; }
+.maplibregl-popup { position: absolute; top: 0; left: 0; display: flex; will-change: transform; pointer-events: none; z-index: 4; }
+.maplibregl-popup-content { pointer-events: auto; background: var(--surface); color: var(--ink); border-radius: 10px; box-shadow: 0 0 0 1px var(--line-2); padding: 8px 10px; font-size: .82rem; max-width: 240px; }
+.maplibregl-popup-tip { display: none; }
+.maplibregl-cooperative-gesture-screen { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; background: rgba(11, 11, 12, .7); color: #fff; font-size: 16px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 4; }
+.maplibregl-cooperative-gesture-screen.maplibregl-show { opacity: 1; }
+.maplibregl-cooperative-gesture-screen .maplibregl-mobile-message { display: none; }
+@media (hover: none) { .maplibregl-cooperative-gesture-screen .maplibregl-desktop-message { display: none; } .maplibregl-cooperative-gesture-screen .maplibregl-mobile-message { display: block; } }
+
+@media (max-width: 520px) { .interna { font-size: .58rem; padding: 6px 8px; } .rich .dentro { padding-left: 14px; } }
+@media (min-width: 900px) {
+  .lavoro { grid-template-columns: minmax(0, 1fr) minmax(360px, 480px); gap: 0 24px; padding-left: var(--gl); padding-right: var(--gr); max-width: var(--max); margin: 0 auto; align-items: start; }
+  .lavoro .gutter { padding-left: 0; padding-right: 0; }
+  .mappa-col { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--alto) + 8px); }
+  .mappa-box { height: min(660px, calc(100vh - var(--alto) - 90px)); min-height: 380px; border: 0; border-radius: var(--r); box-shadow: var(--ombra); }
+  .pannello { padding-top: 0; }
+  .corpo { grid-template-columns: minmax(0, 1fr) 340px; gap: 40px; }
+  .col.lato { position: sticky; top: calc(var(--alto) + 16px); }
+  .pec { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+.lampo { animation: lampo 1.6s ease-out 1; }
+@keyframes lampo { 0% { box-shadow: 0 0 0 3px var(--rosso-vivo); } 100% { box-shadow: var(--ombra); } }
+
+/* ===== quadro ===== */
+.kpi { list-style: none; padding: 0; margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+.kpi li { max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 18px; display: grid; gap: 6px; align-content: start; }
+.kpi b { font: 700 clamp(1.8rem, 5vw, 2.4rem)/1 var(--f-body); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.kpi li.rosso b { color: var(--rosso-vivo); } .kpi li.ocra b { color: var(--ocra); }
+.kpi span { color: var(--ink-2); font-size: .9rem; }
+.kpi a { font: 600 .82rem/1.3 var(--f-mono); color: var(--ink); margin-top: 4px; }
+.due { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 14px; align-items: start; }
+.avvisi, .conto, .semplice { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.avvisi li { display: flex; gap: 10px; align-items: baseline; max-width: none; }
+.pall { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-3); flex: none; transform: translateY(1px); }
+.pall.rosso { background: var(--rosso-vivo); } .pall.ocra { background: var(--ocra); } .pall.blu { background: var(--blu-chiaro); }
+.conto li { max-width: none; color: var(--ink-2); }
+.conto b { font: 700 1.6rem/1 var(--f-body); color: var(--ink); margin-right: 6px; font-variant-numeric: tabular-nums; }
+.semplice li { padding-left: 14px; border-left: 2px solid var(--line-2); }
+.jtf-barra { display: flex; height: 18px; border-radius: 9px; background: var(--surface-2); overflow: hidden; margin-top: 10px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.jtf-barra .seg { display: block; height: 100%; }
+.jtf-barra .cert { background: var(--verde); } .jtf-barra .prev { background: var(--ocra); margin-left: 2px; }
+.jtf-leg { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 4px; font-size: .9rem; color: var(--ink-2); }
+.jtf-leg i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 8px; }
+.jtf-leg i.cert { background: var(--verde); } .jtf-leg i.prev { background: var(--ocra); } .jtf-leg i.manca { background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2); }
+
+/* ===== soldi ===== */
+.legenda-tappe { margin: 10px 0 14px; }
+.op { background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 16px; margin-top: 10px; display: grid; gap: 10px; }
+.op-testa { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.op-testa b { font-size: 1.02rem; }
+.tappe { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+.tappe li { max-width: none; padding: 10px; border-radius: 10px; background: var(--surface-2); display: grid; gap: 4px; align-content: start; border-top: 3px solid var(--line-2); }
+.tappe li.si { border-top-color: var(--verde); }
+.tappe li.no { color: var(--ink-3); }
+.tappe .et { font: 600 .68rem/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.tappe .v { font-size: .86rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tappe li.si .v { color: var(--ink); font-weight: 600; }
+.tappe .v a { font-weight: 400; color: var(--ink-3); font-size: .78rem; margin-left: 4px; }
+@media (max-width: 720px) { .tappe { grid-template-columns: 1fr; } .tappe li { grid-template-columns: 9em 1fr; align-items: baseline; border-top: 0; border-left: 3px solid var(--line-2); } .tappe li.si { border-left-color: var(--verde); } }
+.soldi-chip { font: 600 .74rem/1.3 var(--f-mono); color: var(--verde-testo); }
+.soldi-chip.vuoto { color: var(--ink-3); }
+.storici { display: grid; gap: 10px; margin-top: 12px; }
+.sto { background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 16px; display: grid; gap: 8px; }
+.paga { height: 14px; border-radius: 7px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2); overflow: hidden; }
+.paga span { display: block; height: 100%; background: var(--verde); border-radius: 7px; }
+.paga-num { font-variant-numeric: tabular-nums; }
+.paga-num b.rosso { color: var(--rosso-vivo); }
+.anomalie { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.anomalie li { max-width: none; display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--r-s); background: var(--blu-soft); box-shadow: 0 0 0 1px var(--blu-bordo); }
+.grafico-box { position: relative; margin-top: 8px; }
+.grafico { width: 100%; height: auto; display: block; max-width: 760px; }
+.grafico .griglia { stroke: var(--line); stroke-width: 1; }
+.grafico .asse { fill: var(--ink-3); font: 500 11px var(--f-mono); }
+.grafico .val { fill: var(--ink); font: 700 12px var(--f-mono); }
+.grafico .barra:focus { outline: none; } .grafico .barra:focus-visible path, .grafico .barra:focus-visible rect:first-child { stroke: #fff; stroke-width: 2; }
+.tip { position: absolute; width: 220px; background: #000; color: #fff; padding: 8px 10px; border-radius: 8px; font-size: .82rem; pointer-events: none; box-shadow: 0 0 0 1px var(--line-2); }
+.legenda-g { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .88rem; }
+.legenda-g i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+.tab-dati { margin-top: 10px; } .tab-dati summary { cursor: pointer; color: var(--ink-2); font-size: .9rem; }
+.mov { font: 700 .72rem/1 var(--f-mono); color: var(--ocra-testo); margin-left: 6px; }
+
+/* ===== scadenze ===== */
+.prom-lista { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.prom { max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 14px 16px; display: grid; gap: 6px; border-left: 4px solid var(--line-2); }
+.prom.scaduta { border-left-color: var(--rosso-vivo); } .prom.attesa { border-left-color: var(--blu-chiaro); } .prom.fatto { border-left-color: var(--verde); } .prom.aperta { border-left-color: var(--ocra); }
+.prom-testa { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.prom-testa .q { font: 600 .82rem/1.2 var(--f-mono); }
+.prova { color: var(--verde-testo); font-size: .9rem; }
+.prom-agg summary { cursor: pointer; color: var(--ink-2); font-size: .88rem; }
+.prom-agg .form, .rich .form, #f-campo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; margin-top: 10px; }
+
+/* ===== richieste: tempi ===== */
+.sollecita { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--rosso-soft); box-shadow: 0 0 0 1px var(--rosso-bordo); }
+
+/* ===== sul campo ===== */
+.campo-due { margin-top: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.et-campo { font-size: .82rem; color: var(--ink-2); }
+.pos-riga { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+.pos-riga span { font: 500 .86rem var(--f-mono); margin-right: 4px; }
+.campo-lista { display: grid; gap: 10px; margin-top: 12px; }
+.cc { background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); overflow: hidden; display: grid; grid-template-columns: minmax(0, 160px) 1fr; }
+.cc > img, .cc-nofoto { width: 100%; height: 100%; min-height: 120px; object-fit: cover; cursor: zoom-in; background: var(--surface-2); }
+.cc-nofoto { display: flex; align-items: center; padding: 12px; font-size: .78rem; color: var(--ink-3); cursor: default; }
+.cc-testo { padding: 12px 14px; display: grid; gap: 6px; align-content: start; }
+.cc:not(:has(> img, > .cc-nofoto)) { grid-template-columns: 1fr; }
+.cc-meta { font: 500 .78rem/1.4 var(--f-mono); color: var(--ink-2); }
+.cc-nota { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .cc { grid-template-columns: 1fr; } .cc > img, .cc-nofoto { max-height: 220px; } }
+.link-btn { background: none; border: 0; padding: 0; color: var(--rosso-testo); text-decoration: underline; cursor: pointer; font-size: inherit; }
+.campo-pin { display: block; width: 18px; height: 18px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--verde); box-shadow: 0 0 0 2px #0b0b0c, 0 0 0 3px var(--verde); }
+.campo-pin.leg { display: inline-block; width: 12px; height: 12px; margin: 0 6px 0 2px; vertical-align: -1px; }
+.posa-avviso { margin-bottom: 10px; }
+.posa-avviso .riquadro { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--verde-soft); box-shadow: 0 0 0 1px var(--verde-bordo); }
+
+/* ===== card social ===== */
+.kit-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; margin-top: 18px; }
+.kit-card { margin: 0; display: grid; gap: 10px; align-content: start; }
+.kit-card canvas { width: 100%; height: auto; aspect-ratio: 1080 / 1350; border-radius: 10px; background: #212D57; box-shadow: var(--ombra); }
+.kit-card figcaption { display: grid; gap: 8px; font-size: .9rem; }
+.kit-azioni { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* ===== versione pubblica ===== */
+.agg-pill { font: 600 .66rem/1 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; padding: 7px 10px; border-radius: 999px; color: var(--ink-2); box-shadow: 0 0 0 1px var(--line-2); white-space: nowrap; }
+.apertura { padding-top: 4px; display: grid; gap: 12px; }
+.apertura h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); max-width: 22ch; }
+.cifre { list-style: none; padding: 0; margin: 8px 0 4px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 8px; }
+.cifre li { max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.cifre b { font: 700 1.9rem/1 var(--f-body); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.cifre li.rosso b { color: var(--rosso-vivo); } .cifre li.verde b { color: var(--verde); } .cifre li.blu b { color: var(--blu-chiaro); } .cifre li.ocra b { color: var(--ocra); }
+.cifre span { color: var(--ink-2); font-size: .86rem; }
+.cifre a { font: 600 .78rem/1.3 var(--f-mono); margin-top: 2px; }
+.leg-punto, .punto-verde { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: transparent; box-shadow: inset 0 0 0 3px var(--verde); vertical-align: -1px; margin-right: 6px; }
+.punto-verde { width: 16px; height: 16px; background: rgba(79, 191, 133, .18); margin: 0; }
+.schede-griglia .no-img { display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: 10px; background: linear-gradient(135deg, var(--blu-soft), var(--surface-2)); font: 700 2rem/1 var(--f-mono); color: var(--blu-chiaro); }
+.sop-chip { font: 600 .72rem/1.3 var(--f-mono); color: var(--ink-3); }
+.sop-chip.si { color: var(--verde-testo); }
+.confronto { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 22px; }
+.confronto .riquadro { display: grid; gap: 8px; align-content: start; }
+.sul-posto { box-shadow: 0 0 0 1px var(--verde-bordo); background: var(--verde-soft); }
+.occhiello.verde { color: var(--verde-testo); } .occhiello.verde::before { background: var(--verde); }
+.vuoto-box { padding: 14px; border-radius: var(--r-s); border: 1px dashed var(--line-2); color: var(--ink-2); font-size: .92rem; }
+.sul-posto .vuoto-box { border-color: var(--verde-bordo); }
+.sop-lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.sop-lista li { max-width: none; display: grid; gap: 8px; }
+.sop-lista .q { font: 600 .82rem/1.2 var(--f-mono); }
+.sop-lista img { width: 100%; max-height: 260px; object-fit: cover; border-radius: 10px; cursor: zoom-in; }
+.date-lista { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.date-lista li { max-width: none; display: grid; grid-template-columns: 9.5em 1fr; gap: 10px; padding-left: 10px; border-left: 3px solid var(--blu-chiaro); }
+.date-lista li.passata { border-left-color: var(--rosso-vivo); } .date-lista li.fatto { border-left-color: var(--verde); }
+.date-lista .q { font: 600 .8rem/1.5 var(--f-mono); color: var(--ink-2); }
+@media (max-width: 520px) { .date-lista li { grid-template-columns: 1fr; gap: 2px; } }
+details.apri { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+details.apri > summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+details.apri > summary::-webkit-details-marker { display: none; }
+details.apri > summary::before { content: "+"; font: 700 1.1rem/1 var(--f-mono); color: var(--rosso-vivo); width: 1em; }
+details.apri[open] > summary::before { content: "−"; }
+details.apri > summary h2, details.apri > summary h3 { display: inline; }
+.percorso { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px; counter-reset: p; }
+.percorso li { max-width: none; counter-increment: p; background: var(--surface); border-radius: var(--r-s); box-shadow: var(--ombra); padding: 14px; display: grid; gap: 4px; }
+.percorso li::before { content: counter(p); font: 700 .8rem/1 var(--f-mono); color: #fff; background: var(--rosso); width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; }
+.percorso span { color: var(--ink-2); font-size: .88rem; }
+#f-prop { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; margin-top: 12px; }
+#f-prop .pieno { grid-column: 1 / -1; }
+.et-campo { font-size: .82rem; color: var(--ink-2); }
+.pos-riga { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+.pos-riga span { font: 500 .86rem var(--f-mono); margin-right: 4px; }
+.spunta { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--ink-2); }
+.spunta input { width: 20px; height: 20px; margin-top: 1px; accent-color: var(--rosso); flex: none; }
+.testo-copia { grid-column: 1 / -1; width: 100%; background: var(--bg); border: 1px solid var(--line-2); border-radius: 10px; padding: 10px; font: 500 .82rem/1.5 var(--f-mono); color: var(--ink-2); }
+.spazi { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; }
+.spazi li { max-width: none; background: var(--surface); border-radius: var(--r); box-shadow: var(--ombra); padding: 14px 16px; display: grid; gap: 6px; }
+.campo-pin { display: block; width: 18px; height: 18px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--verde); box-shadow: 0 0 0 2px #0b0b0c, 0 0 0 3px var(--verde); }
+.campo-pin.leg { display: inline-block; width: 12px; height: 12px; margin: 0 6px 0 2px; vertical-align: -1px; }
+.posa-avviso { margin-bottom: 10px; }
+.posa-avviso .riquadro { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--verde-soft); box-shadow: 0 0 0 1px var(--verde-bordo); }
+
+</style>
+</head>
+<body>
+
+<header class="testata">
+  <div class="testata-riga gutter">
+    <a class="marchio" href="#mappa"><img src="data:image/png;base64,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" alt="Postilva"><span><b>Cantiere verde</b><small>Postilva · Taranto</small></span></a>
+    <span class="agg-pill" id="agg-pill"></span>
+  </div>
+  <div class="menu-box gutter">
+    <nav class="menu" aria-label="Sezioni">
+      <a href="#mappa" data-nav="mappa">Mappa</a>
+      <a href="#interventi" data-nav="interventi">Interventi</a>
+      <a href="#soldi" data-nav="soldi">Soldi</a>
+      <a href="#proponi" data-nav="proponi">Proponi uno spazio</a>
+      <a href="#metodo" data-nav="metodo">Come lavoriamo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenuto">
+
+<section class="vista" data-vista="mappa" aria-labelledby="t-mappa">
+  <div class="gutter apertura">
+    <p class="occhiello">Il verde pubblico di Taranto</p>
+    <h1 id="t-mappa" tabindex="-1">Cosa si sta facendo, a che punto è, cosa proponete voi</h1>
+    <p class="intro">Diciotto interventi pubblici su verde, coste e bonifiche, con le fonti ufficiali. Il tavolo Cantiere verde di Postilva va sul posto a verificare lo stato dei lavori e raccoglie le vostre proposte su altri spazi da recuperare.</p>
+    <ul class="cifre" id="cifre"></ul>
+  </div>
+  <div class="barra-filtri gutter" id="filtri"></div>
+  <div class="gutter posa-avviso" id="posa-avviso" hidden><p class="riquadro"><b>Tocca la mappa nel punto dello spazio che proponi.</b> <button type="button" class="bottone sec pic" id="posa-annulla">Annulla</button></p></div>
+  <div class="lavoro">
+    <div class="mappa-col">
+      <div id="mappa-box" class="mappa-box" role="region" aria-label="Mappa interattiva. L'elenco accanto contiene gli stessi interventi"><p class="mappa-msg">Caricamento della mappa…</p></div>
+      <ul class="legenda gutter" aria-label="Legenda">
+        <li><span class="leg-area jtf"></span> Fondi JTF</li>
+        <li><span class="leg-area altri"></span> Altri fondi</li>
+        <li><span class="leg-punto"></span> Altro verde già finanziato, secondo il Comune</li>
+        <li><span class="campo-pin leg" aria-hidden="true"></span> Spazio proposto</li>
+        <li>Bordi tratteggiati: posizioni indicative, ricavate dalle tavole degli enti.</li>
+      </ul>
+    </div>
+    <div class="pannello gutter" id="pannello" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="vista gutter" data-vista="interventi" aria-labelledby="t-int" hidden>
+  <p class="occhiello">Diciotto schede, un solo modello</p>
+  <h1 id="t-int" tabindex="-1" style="margin-top:10px">Gli interventi</h1>
+  <p class="intro" style="margin-top:10px">Ogni scheda mette accanto lo stato dichiarato negli atti e quello che abbiamo visto sul posto.</p>
+  <div class="barra-filtri" id="filtri-int" style="padding-left:0;padding-right:0"></div>
+  <ul class="schede-griglia" id="griglia"></ul>
+  <h2 style="margin-top:32px">Altro verde già finanziato, secondo il Comune</h2>
+  <p class="nota" style="margin-top:6px">Il Comune li indica come finanziati e in corso, ma le fonti non danno importi né stato dei lavori. Sono i primi posti da andare a vedere.</p>
+  <ul class="semplice" id="altri-verdi"></ul>
+</section>
+
+<section class="vista gutter" data-vista="scheda" hidden><div id="scheda"></div></section>
+
+<section class="vista gutter" data-vista="soldi" aria-labelledby="t-soldi" hidden>
+  <p class="occhiello">Segui i soldi</p>
+  <h1 id="t-soldi" tabindex="-1" style="margin-top:10px">Soldi</h1>
+  <p class="intro" style="margin-top:10px">Quanto è stato assegnato a ogni opera e quanto risulta pagato nei dati pubblici. Quando un dato non è pubblico lo scriviamo.</p>
+  <ul class="cifre" id="soldi-cifre"></ul>
+  <div class="tabella" style="margin-top:14px"><table id="soldi-tab"></table></div>
+  <h2 style="margin-top:32px">La bonifica del Mar Piccolo: i soldi più vecchi</h2>
+  <p class="nota" style="margin-top:6px">Progetti finanziati da anni, con i pagamenti registrati su OpenCoesione (dati al 31 agosto 2026).</p>
+  <div id="storici"></div>
+  <details class="apri" id="d-anomalie"><summary><h2>Dati da chiarire</h2><span class="nota">Fonti ufficiali che non coincidono</span></summary><ul class="anomalie" id="anomalie"></ul></details>
+  <details class="apri"><summary><h2>Quando vanno spesi</h2><span class="nota">Impegni e prenotazioni per anno, fino al 2029</span></summary><div id="soldi-anni"></div></details>
+  <details class="apri"><summary><h2>Il JTF di Taranto</h2><span class="nota">Procedure dell'azione 2.3 e spesa del 2026</span></summary><div id="procedure"></div><div id="jtf-soldi" style="margin-top:16px"></div></details>
+  <details class="apri"><summary><h2>Dove si sono spostati i soldi</h2><span class="nota">Le decisioni dal 2025 a oggi</span></summary><ol class="cronologia" id="movimenti" style="margin-top:12px"></ol></details>
+</section>
+
+<section class="vista gutter" data-vista="proponi" aria-labelledby="t-prop" hidden>
+  <p class="occhiello">Partecipa</p>
+  <h1 id="t-prop" tabindex="-1" style="margin-top:10px">Proponi uno spazio</h1>
+  <p class="intro" style="margin-top:10px">Conosci un'area abbandonata, un giardino chiuso, un tratto di costa da recuperare? Segnalalo. Il tavolo va a vederlo, ne discute e porta le proposte al Comune e agli altri enti.</p>
+  <ol class="percorso" aria-label="Il percorso di una proposta">
+    <li><b>Segnalata</b><span>La proposta arriva e compare qui.</span></li>
+    <li><b>Vista sul posto</b><span>Il tavolo fa un sopralluogo.</span></li>
+    <li><b>Discussa</b><span>Ne parliamo al tavolo Cantiere verde.</span></li>
+    <li><b>Portata all'ente</b><span>La presentiamo a chi decide e pubblichiamo la risposta.</span></li>
+  </ol>
+  <div class="due" style="margin-top:22px">
+    <section class="riquadro"><h2>La tua proposta</h2><div id="prop-form"></div></section>
+    <section><h2>Spazi proposti</h2><div id="spazi-lista"></div></section>
+  </div>
+</section>
+
+<section class="vista gutter testo" data-vista="metodo" aria-labelledby="t-met" hidden>
+  <h1 id="t-met" tabindex="-1">Come lavoriamo</h1>
+  <p class="intro">Cantiere verde è il tavolo 3 di Postilva. Una regola: agganciarsi a chi lavora già sul verde, e distinguere sempre quello che è confermato da quello che è un'ipotesi.</p>
+  <h2>Tre passi, ripetuti</h2>
+  <ol>
+    <li><strong>Gli atti.</strong> Per ogni intervento raccogliamo quello che dicono gli enti: decreti, delibere, schede dei programmi, presentazioni.</li>
+    <li><strong>Il sopralluogo.</strong> Andiamo sul posto e rispondiamo sempre alle stesse domande: ci sono lavori? c'è il cartello di cantiere con importo e date? si può entrare? ci sono rifiuti? Così due visite a mesi di distanza si possono confrontare.</li>
+    <li><strong>Le proposte.</strong> Da quello che vediamo, e da quello che ci segnalate, nascono le proposte del tavolo.</li>
+  </ol>
+  <h2>Da dove vengono i dati</h2>
+  <ul>
+    <li><strong>Atti ufficiali</strong>: decreti, delibere, relazioni alle Camere.</li>
+    <li><strong>Pubblicazioni degli enti</strong>: siti del Programma JTF e di OpenCoesione, comunicati del Commissario per le bonifiche, presentazioni del Comune e del Ministero dell'Ambiente.</li>
+    <li><strong>Documenti del percorso partecipativo</strong> sul Mar Piccolo (Università di Bari, 2026): riportano quanto dichiarato da Comune e Commissario negli incontri. Non sono atti.</li>
+    <li><strong>I sopralluoghi</strong> sono osservazioni di Postilva, con data e foto.</li>
+    <li>Gli articoli di giornale non sono fonti: li usiamo solo per sapere quale atto cercare.</li>
+  </ul>
+  <h2>Soldi: come leggerli</h2>
+  <p>«Ammesso» vuol dire che chi paga ha approvato l'opera per quella cifra. «Pagato» è quanto risulta speso nei dati pubblici. Se un dato non è pubblico scriviamo «non pubblicato», mai zero. Quando un dato manca lo chiediamo agli enti con una richiesta di accesso agli atti.</p>
+  <h2>Le aree sulla mappa</h2>
+  <p>Sono disegnate a mano dalle tavole del Comune (marzo 2026) e dalle schede degli interventi: servono a capire dove, non a misurare. Il perimetro del cimitero San Brunone viene da OpenStreetMap.</p>
+  <h2>Tutte le fonti</h2>
+  <div id="arch"></div>
+  <h2>Le proposte e i dati personali</h2>
+  <p>Delle proposte pubblichiamo solo il luogo, la descrizione e la data. Nome e contatti servono a noi per richiamarvi e non vengono pubblicati.</p>
+</section>
+
+</main>
+
+<footer class="piede"><div class="gutter">
+  <p>Cantiere verde · <a href="/verde/">Tavolo 3</a> di <a href="/">Postilva</a> · <span id="agg-piede"></span></p>
+  <p>Mappa © OpenStreetMap contributors (ODbL). Immagini: Comune di Taranto, presentazione al percorso partecipativo, marzo 2026.</p>
+</div></footer>
+
+<script src="osm.js"></script>
+<script src="fonti.js"></script>
+<script src="dati.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+  function dataIt(d, prec) {
+    if (!d) return "";
+    var p = d.split("-"), g = +p[2], m = MESI[+p[1] - 1], a = p[0];
+    if (prec === "anno") return a;
+    if (prec === "mese") return m + " " + a;
+    return g + " " + m + " " + a;
+  }
+  function oggiIso() { var d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function giorni(d) { return Math.round((new Date(d + "T00:00:00Z") - new Date(oggiIso() + "T00:00:00Z")) / 864e5); }
+  function eur(n) { var neg = n < 0, v = Math.abs(n).toFixed(2).split("."), i = v[0].replace(/\B(?=(\d{3})+(?!\d))/g, "."); return (neg ? "−" : "") + i + "," + v[1] + " €"; }
+  function mln(n) { return (n / 1e6).toFixed(2).replace(".", ",") + " mln"; }
+  function fonteLink(f, testo) { var F = FONTI[f]; if (!F) return esc(testo || ""); return F.u ? '<a href="' + esc(F.u) + '" target="_blank" rel="noopener" title="' + esc(F.t) + '">' + esc(testo || F.ente) + "</a>" : esc(testo || F.ente); }
+
+  var perId = {}; INT.forEach(function (x) { perId[x.id] = x; });
+  var perCod = {}; RICHIESTE.forEach(function (r) { perCod[r[0]] = r; });
+  var ETI_CHI = { comune: "Comune", commissario: "Commissario" };
+  var ETI_TIPO = { atto: "Atto ufficiale", ente: "Pubblicazione di un ente", perc: "Documento del percorso" };
+  var STATI_SPAZIO = { segnalata: ["", "Segnalata"], vista: ["blu", "Vista sul posto"], discussa: ["ocra", "Discussa al tavolo"], portata: ["verde", "Portata all'ente"] };
+  function segno(x) { return '<span class="segno mini ' + x.fondi + '" aria-hidden="true">' + x.n + "</span>"; }
+  function fasePill(x) { return '<span class="pill ' + x.fase[0] + '">' + esc(x.fase[1]) + "</span>"; }
+  function opsDi(id) { return OPERAZIONI.filter(function (o) { return o.int === id; }); }
+  function somma(k, lista) { return (lista || OPERAZIONI).reduce(function (a, o) { return a + (o[k][0] || 0); }, 0); }
+  function sopDi(id) { return SOPRALLUOGHI.filter(function (s) { return s.int === id; }).sort(function (a, b) { return a.data < b.data ? 1 : -1; }); }
+  function ultimoSop(id) { return sopDi(id)[0] || null; }
+
+  /* ================= router ================= */
+  var VISTE = ["mappa", "interventi", "soldi", "proponi", "metodo"];
+  var vistaCorrente = null, schedaCorrente = null, dopoId = null;
+  function instrada() {
+    var h = (location.hash || "").replace("#", ""), vista = "mappa", id = null;
+    if (/^int-\d\d$/.test(h) && perId[h]) { vista = "scheda"; id = h; }
+    else if (VISTE.indexOf(h) >= 0) vista = h;
+    vistaCorrente = vista;
+    $$(".vista").forEach(function (v) { v.hidden = v.getAttribute("data-vista") !== vista; });
+    $$(".menu a").forEach(function (a) {
+      var n = a.getAttribute("data-nav");
+      if (n === vista || (vista === "scheda" && n === "interventi")) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    if (vista === "scheda") { schedaCorrente = id; disegnaScheda(id); }
+    if (vista === "mappa") { avviaMappa(); if (mappa) setTimeout(function () { mappa.resize(); }, 30); }
+    if (vista === "interventi") disegnaInterventi();
+    if (vista === "soldi") disegnaSoldi();
+    if (vista === "proponi") disegnaProponi();
+    if (vista === "metodo") disegnaArchivio();
+    if (vista !== "mappa" && posa) finePosa();
+    var t = $('[data-vista="' + vista + '"] h1');
+    if (!dopoId) window.scrollTo(0, 0);
+    if (t && instrada.fatto) t.focus({ preventScroll: true });
+    instrada.fatto = true;
+    if (dopoId) { var el = document.getElementById(dopoId); dopoId = null; if (el) setTimeout(function () { if (el.tagName === "DETAILS") el.open = true; el.scrollIntoView({ block: "start" }); }, 40); }
+  }
+  window.addEventListener("hashchange", instrada);
+  document.addEventListener("click", function (e) {
+    var dd = e.target.closest("[data-dopo]"); if (dd) dopoId = dd.getAttribute("data-dopo");
+    var a = e.target.closest("[data-vai]");
+    if (a) { e.preventDefault(); var el = document.getElementById(a.getAttribute("data-vai")); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.classList.add("lampo"); } }
+    var im = e.target.closest("img[data-zoom]");
+    if (im) apriLente(im.getAttribute("src"), im.getAttribute("alt"));
+  });
+  function apriLente(src, alt) {
+    var d = document.createElement("div"); d.className = "lente"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", "Immagine ingrandita");
+    d.innerHTML = '<img src="' + esc(src) + '" alt="' + esc(alt || "") + '"><button type="button" class="bottone pic">Chiudi</button>';
+    function chiudi() { d.remove(); document.removeEventListener("keydown", tasto); }
+    function tasto(ev) { if (ev.key === "Escape") chiudi(); }
+    d.addEventListener("click", chiudi); document.addEventListener("keydown", tasto);
+    document.body.appendChild(d); $("button", d).focus();
+  }
+
+  /* ================= mappa ================= */
+  var osm = window.OSM_INCORPORATO, mappa = null, segni = [];
+  var C = { blu: "#e4e4e7", bianco: "#34343a", testo2: "#a1a1aa", terra: "#141416", mare: "#1a2442" };
+  var B = { verde: "#17211b", industria: "#1b1a1e", costruito: "#212125", costruitoBordo: "#2b2b30", bordoStrada: "#1d1d21", ferrovia: "#52525b" };
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
+  function gunzip(buf) { return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer(); }
+  function stileMappa() {
+    maplibregl.addProtocol("incorporato", function (params) {
+      var k = decodeURIComponent(params.url.replace("incorporato://", ""));
+      var tessera = k.charAt(0) === "t", tab = tessera ? osm.tessere : osm.fonts, c = k.slice(2);
+      if (!tab[c]) {
+        if (!tessera) return Promise.resolve({ data: new ArrayBuffer(0) });
+        var e = new Error("tessera non incorporata"); e.status = 404; return Promise.reject(e);
+      }
+      return gunzip(b64(tab[c])).then(function (d) { return { data: d }; });
+    });
+    function cls(v) { return ["match", ["get", "class"], v, true, false]; }
+    var nome = ["coalesce", ["get", "name:it"], ["get", "name"]];
+    var z = function (a) { return ["interpolate", ["exponential", 1.5], ["zoom"]].concat(a); };
+    var STRADE = [
+      ["minori", ["minor", "service"], [13, 0.8, 16, 6], 13],
+      ["secondarie", ["secondary", "tertiary"], [11, 1, 14, 3.5, 16, 9], 10],
+      ["principali", ["motorway", "trunk", "primary"], [10, 1.2, 14, 4.5, 16, 11], 10]
+    ];
+    var L = [
+      { id: "fondo", type: "background", paint: { "background-color": C.terra } },
+      { id: "uso-suolo", type: "fill", source: "osm", "source-layer": "landuse", filter: cls(["industrial", "railway", "commercial", "retail", "quarry"]), paint: { "fill-color": B.industria } },
+      { id: "verde", type: "fill", source: "osm", "source-layer": "landcover", filter: cls(["grass", "wood", "farmland", "scrub"]), paint: { "fill-color": B.verde, "fill-opacity": 0.8 } },
+      { id: "parchi", type: "fill", source: "osm", "source-layer": "park", paint: { "fill-color": B.verde } },
+      { id: "acqua", type: "fill", source: "osm", "source-layer": "water", paint: { "fill-color": C.mare } },
+      { id: "corsi-acqua", type: "line", source: "osm", "source-layer": "waterway", paint: { "line-color": C.mare, "line-width": 1.5 } },
+      { id: "costruito", type: "fill", source: "osm", "source-layer": "building", minzoom: 13, paint: { "fill-color": B.costruito, "fill-outline-color": B.costruitoBordo } }
+    ];
+    STRADE.forEach(function (s) {
+      var bordo = s[2].slice();
+      for (var i = 1; i < bordo.length; i += 2) bordo[i] = bordo[i] + (bordo[i] < 2 ? 0.8 : 2);
+      L.push({ id: "strade-" + s[0] + "-bordo", type: "line", source: "osm", "source-layer": "transportation", minzoom: s[3],
+        filter: ["all", cls(s[1]), ["!=", ["get", "brunnel"], "tunnel"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": B.bordoStrada, "line-width": z(bordo) } });
+    });
+    STRADE.forEach(function (s) {
+      L.push({ id: "strade-" + s[0], type: "line", source: "osm", "source-layer": "transportation", minzoom: s[3],
+        filter: ["all", cls(s[1]), ["!=", ["get", "brunnel"], "tunnel"]], layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": C.bianco, "line-width": z(s[2]) } });
+    });
+    L.push(
+      { id: "ferrovia", type: "line", source: "osm", "source-layer": "transportation", filter: ["all", cls(["rail"]), ["!=", ["get", "brunnel"], "tunnel"]],
+        paint: { "line-color": B.ferrovia, "line-width": ["interpolate", ["linear"], ["zoom"], 11, 0.8, 16, 2] } },
+      { id: "nomi-acqua", type: "symbol", source: "osm", "source-layer": "water_name",
+        layout: { "text-field": nome, "text-font": ["Noto Sans Italic"], "text-size": 13, "symbol-placement": "point" },
+        paint: { "text-color": C.testo2, "text-halo-color": C.mare, "text-halo-width": 1.5 } },
+      { id: "nomi-strade", type: "symbol", source: "osm", "source-layer": "transportation_name", minzoom: 14,
+        filter: cls(["motorway", "trunk", "primary", "secondary", "tertiary", "minor"]),
+        layout: { "text-field": nome, "text-font": ["Noto Sans Regular"], "symbol-placement": "line", "text-size": 11, "text-max-angle": 30, "text-padding": 4 },
+        paint: { "text-color": C.testo2, "text-halo-color": C.terra, "text-halo-width": 1.5 } },
+      { id: "nomi-luoghi", type: "symbol", source: "osm", "source-layer": "place",
+        filter: cls(["suburb", "quarter", "neighbourhood", "village", "hamlet", "town", "city"]),
+        layout: { "text-field": ["upcase", nome], "text-font": ["Noto Sans Bold"], "text-letter-spacing": 0.12,
+          "text-size": ["match", ["get", "class"], ["city", "town"], 15, 12], "text-max-width": 8, "text-padding": 8 },
+        paint: { "text-color": C.blu, "text-halo-color": C.terra, "text-halo-width": 2 } }
+    );
+    return { version: 8, glyphs: "incorporato://f/{fontstack}/{range}",
+      sources: { osm: { type: "vector", tiles: ["incorporato://t/{z}/{x}/{y}"], minzoom: osm.zoom[0], maxzoom: osm.zoom[1] } }, layers: L };
+  }
+  var mappa = null, marcatori = [], selezionato = null, filtri = { chi: null, fondi: null };
+  var LIMITI = [[17.195, 40.39], [17.33, 40.53]];
+  function cerchio(c, r) { var pts = [], k = Math.cos(c[1] * Math.PI / 180); for (var i = 0; i <= 40; i++) { var a = i / 40 * 2 * Math.PI; pts.push([c[0] + r / 111320 / k * Math.cos(a), c[1] + r / 110540 * Math.sin(a)]); } return pts; }
+  function centro(pts) { var x = 0, y = 0; pts.forEach(function (p) { x += p[0]; y += p[1]; }); return [x / pts.length, y / pts.length]; }
+  function geometrie() {
+    var F = [];
+    INT.forEach(function (x) {
+      (AREE[x.id] || []).forEach(function (a) {
+        var g = null;
+        if (a.k === "poly") g = { type: "Polygon", coordinates: [a.c.concat([a.c[0]])] };
+        else if (a.k === "circle") g = { type: "Polygon", coordinates: [cerchio(a.c, a.r)] };
+        else if (a.k === "line") g = { type: "LineString", coordinates: a.c };
+        if (g) F.push({ type: "Feature", geometry: g, properties: { id: x.id, fondi: x.fondi } });
+      });
+    });
+    return { type: "FeatureCollection", features: F };
+  }
+  function puntiSegni() {
+    var out = [];
+    INT.forEach(function (x) {
+      (AREE[x.id] || []).forEach(function (a, i) {
+        var c;
+        if (a.k === "poly") c = centro(a.c); else if (a.k === "circle") c = a.c; else if (a.k === "line") c = a.c[Math.floor(a.c.length / 2)]; else if (a.k === "bacino") c = [17.2755, 40.4885];
+        if (x.id === "int-03" && a.c && a.c.length > 6) return;
+        if (x.id === "int-09" && i > 0) return;
+        if (x.id === "int-05" && a.k === "line") return;
+        out.push({ id: x.id, c: c, nome: a.nome });
+      });
+    });
+    return out;
+  }
+  function boundsDi(id) {
+    var b = new maplibregl.LngLatBounds(), ok = false;
+    (AREE[id] || []).forEach(function (a) { var pts = a.k === "circle" ? cerchio(a.c, a.r) : (a.c && Array.isArray(a.c[0]) ? a.c : null); if (pts) { pts.forEach(function (p) { b.extend(p); }); ok = true; } });
+    return ok ? b : null;
+  }
+  function erroreMappa() { $("#mappa-box").innerHTML = '<p class="mappa-msg">La mappa non si è caricata. Gli interventi sono nell\'elenco qui accanto.</p>'; }
+  var posa = false, bozza = {};
+  function iniziaPosa() { posa = true; location.hash = "#mappa"; setTimeout(function () { $("#posa-avviso").hidden = false; if (mappa) mappa.getCanvas().style.cursor = "crosshair"; $("#posa-avviso").scrollIntoView({ block: "start" }); }, 60); }
+  function finePosa() { posa = false; $("#posa-avviso").hidden = true; if (mappa) mappa.getCanvas().style.cursor = ""; }
+  function avviaMappa() {
+    if (mappa || avviaMappa.fallita) return;
+    if (!window.maplibregl || !osm || !window.DecompressionStream) { avviaMappa.fallita = true; return erroreMappa(); }
+    try {
+      mappa = new maplibregl.Map({
+        container: $("#mappa-box"), style: stileMappa(), bounds: LIMITI, fitBoundsOptions: { padding: 24 },
+        maxBounds: [[17.10, 40.35], [17.40, 40.57]], minZoom: 10, maxZoom: 16, dragRotate: false, pitchWithRotate: false, touchPitch: false,
+        cooperativeGestures: true, attributionControl: false, fadeDuration: 0,
+        locale: { "CooperativeGesturesHandler.WindowsHelpText": "Usa Ctrl + rotella per ingrandire la mappa", "CooperativeGesturesHandler.MacHelpText": "Usa ⌘ + rotella per ingrandire la mappa", "CooperativeGesturesHandler.MobileHelpText": "Usa due dita per spostare la mappa", "NavigationControl.ZoomIn": "Ingrandisci", "NavigationControl.ZoomOut": "Riduci", "Map.Title": "Mappa" }
+      });
+    } catch (e) { avviaMappa.fallita = true; return erroreMappa(); }
+    var att = $(".mappa-msg"); if (att) att.remove();
+    mappa.touchZoomRotate.disableRotation();
+    mappa.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+    mappa.addControl(new maplibregl.AttributionControl({ compact: false, customAttribution: "© OpenStreetMap contributors (ODbL) · OpenMapTiles · OpenFreeMap" }), "bottom-right");
+    mappa.on("load", function () {
+      mappa.addSource("aree", { type: "geojson", data: geometrie() });
+      var colore = ["match", ["get", "fondi"], "jtf", "#ef3b3d", "#8ea0e6"];
+      mappa.addLayer({ id: "aree-fill", type: "fill", source: "aree", filter: ["==", ["geometry-type"], "Polygon"], paint: { "fill-color": colore, "fill-opacity": 0.28 } });
+      mappa.addLayer({ id: "aree-bordo", type: "line", source: "aree", filter: ["==", ["geometry-type"], "Polygon"], paint: { "line-color": colore, "line-width": 1.6, "line-dasharray": [2, 1.5] } });
+      mappa.addLayer({ id: "aree-linea", type: "line", source: "aree", filter: ["==", ["geometry-type"], "LineString"], layout: { "line-cap": "round" }, paint: { "line-color": colore, "line-width": 4, "line-dasharray": [1.5, 1] } });
+      ["aree-fill", "aree-linea"].forEach(function (l) {
+        mappa.on("click", l, function (e) { if (posa) return; var f = e.features && e.features[0]; if (f) seleziona(f.properties.id, false); });
+        mappa.on("mouseenter", l, function () { if (!posa) mappa.getCanvas().style.cursor = "pointer"; });
+        mappa.on("mouseleave", l, function () { if (!posa) mappa.getCanvas().style.cursor = ""; });
+      });
+      aggiornaMappa();
+      mappa.on("click", function (e) {
+        if (!posa) return;
+        bozza.lng = +e.lngLat.lng.toFixed(5); bozza.lat = +e.lngLat.lat.toFixed(5);
+        finePosa(); location.hash = "#proponi";
+      });
+    });
+    puntiSegni().forEach(function (p) {
+      var x = perId[p.id], el = document.createElement("button");
+      el.type = "button"; el.className = "segno " + x.fondi; el.textContent = x.n;
+      el.setAttribute("aria-label", "INT-" + x.n + ", " + x.nome + ": " + p.nome); el.setAttribute("aria-pressed", "false"); el.title = x.nome;
+      el.addEventListener("click", function (ev) { if (posa) return; ev.stopPropagation(); seleziona(p.id, false); });
+      new maplibregl.Marker({ element: el }).setLngLat(p.c).addTo(mappa);
+      marcatori.push({ id: p.id, el: el });
+    });
+    ALTRI_VERDI.forEach(function (v) {
+      var el = document.createElement("span"); el.className = "punto-verde"; el.title = v[0] + " (posizione indicativa)"; el.setAttribute("role", "img"); el.setAttribute("aria-label", v[0]);
+      new maplibregl.Marker({ element: el }).setLngLat(v[1]).addTo(mappa);
+    });
+    SPAZI.forEach(function (s) {
+      if (typeof s.lng !== "number") return;
+      var el = document.createElement("a"); el.className = "campo-pin"; el.href = "#proponi"; el.setAttribute("data-dopo", "sp-" + s.id);
+      el.setAttribute("aria-label", "Spazio proposto: " + s.nome); el.title = s.nome;
+      new maplibregl.Marker({ element: el }).setLngLat([s.lng, s.lat]).addTo(mappa);
+    });
+  }
+  function passa(x) { return (!filtri.chi || x.chi === filtri.chi) && (!filtri.fondi || x.fondi === filtri.fondi); }
+  function aggiornaMappa() {
+    marcatori.forEach(function (m) { m.el.setAttribute("aria-pressed", m.id === selezionato ? "true" : "false"); m.el.classList.toggle("spento", !passa(perId[m.id]) || (selezionato && m.id !== selezionato)); });
+    if (!mappa || !mappa.getLayer("aree-fill")) return;
+    var filtroId = ["in", ["get", "id"], ["literal", INT.filter(passa).map(function (x) { return x.id; })]];
+    mappa.setFilter("aree-fill", ["all", ["==", ["geometry-type"], "Polygon"], filtroId]);
+    mappa.setFilter("aree-bordo", ["all", ["==", ["geometry-type"], "Polygon"], filtroId]);
+    mappa.setFilter("aree-linea", ["all", ["==", ["geometry-type"], "LineString"], filtroId]);
+    mappa.setPaintProperty("aree-fill", "fill-opacity", selezionato ? ["case", ["==", ["get", "id"], selezionato], 0.55, 0.1] : 0.28);
+    mappa.setPaintProperty("aree-bordo", "line-width", selezionato ? ["case", ["==", ["get", "id"], selezionato], 2.6, 1] : 1.6);
+  }
+  function seleziona(id, daElenco) {
+    selezionato = (selezionato === id && daElenco) ? null : id;
+    aggiornaMappa(); disegnaPannello();
+    if (!mappa) return;
+    var moto = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var b = selezionato ? boundsDi(selezionato) : null;
+    if (b) mappa.fitBounds(b, { padding: 70, maxZoom: 15, duration: moto ? 600 : 0 }); else mappa.fitBounds(LIMITI, { padding: 24, duration: moto ? 500 : 0 });
+  }
+  function disegnaFiltri() {
+    var G = [["chi", "Chi", [["comune", "Comune"], ["commissario", "Commissario"]]], ["fondi", "Fondi", [["jtf", "JTF"], ["altri", "Altri fondi"]]]];
+    $("#filtri").innerHTML = G.map(function (g) {
+      return '<span class="et">' + g[1] + '</span><div class="pillole" role="group" aria-label="' + g[1] + '">' + g[2].map(function (o) {
+        var n = INT.filter(function (x) { return x[g[0]] === o[0]; }).length;
+        return '<button type="button" class="pillola" data-f="' + g[0] + '" data-v="' + o[0] + '" aria-pressed="' + (filtri[g[0]] === o[0]) + '">' + o[1] + ' <span class="c">' + n + "</span></button>";
+      }).join("") + "</div>";
+    }).join("");
+    $$("#filtri .pillola").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var f = b.getAttribute("data-f"), v = b.getAttribute("data-v");
+        filtri[f] = filtri[f] === v ? null : v;
+        if (selezionato && !passa(perId[selezionato])) selezionato = null;
+        disegnaFiltri(); aggiornaMappa(); disegnaPannello();
+      });
+    });
+  }
+  function sopBreve(id) { var s = ultimoSop(id); return s ? "Visto il " + dataIt(s.data) + (s.lavori ? ": lavori " + s.lavori : "") : "Non ancora visto sul posto"; }
+  function disegnaPannello() {
+    var lista = INT.filter(passa);
+    var h = '<ul class="elenco" aria-label="Interventi">' + lista.map(function (x) {
+      return '<li><button type="button" data-sel="' + x.id + '" aria-pressed="' + (x.id === selezionato) + '">' + segno(x) +
+        '<span><span class="tit">' + esc(x.nome) + '</span><span class="meta">' + ETI_CHI[x.chi] + " · " + esc(sopBreve(x.id)) + "</span></span>" + fasePill(x) + "</button></li>";
+    }).join("") + "</ul>";
+    if (selezionato) {
+      var x = perId[selezionato];
+      h = '<div class="anteprima riquadro"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + segno(x) + '<span class="chip ' + x.chi + '">' + ETI_CHI[x.chi] + "</span>" + fasePill(x) + "</div>" +
+        '<h2 style="margin-top:10px">' + esc(x.nome) + '</h2><p class="lede">' + esc(x.lede[0]) + "</p>" +
+        '<dl class="dati">' + x.breve.map(function (b) { return "<div><dt>" + esc(b[0]) + "</dt><dd>" + esc(b[1]) + "</dd></div>"; }).join("") + "<div><dt>Sul posto</dt><dd>" + esc(sopBreve(x.id)) + "</dd></div></dl>" +
+        '<p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><a class="bottone" href="#' + x.id + '">Apri la scheda</a><button type="button" class="bottone sec" data-sel="' + x.id + '">Togli la selezione</button></p></div>' +
+        '<h3 style="margin:18px 0 8px">Tutti gli interventi</h3>' + h;
+    } else {
+      h = '<p class="intro" style="margin-bottom:12px">Tocca un\'area o un numero sulla mappa, oppure scegli dall\'elenco.</p>' + h;
+    }
+    $("#pannello").innerHTML = h;
+    $$("#pannello [data-sel]").forEach(function (b) { b.addEventListener("click", function () { seleziona(b.getAttribute("data-sel"), true); }); });
+  }
+  function disegnaCifre() {
+    var amm = somma("ammesso"), spe = somma("speso"), visti = INT.filter(function (x) { return ultimoSop(x.id); }).length;
+    $("#cifre").innerHTML =
+      '<li><b>' + INT.length + "</b><span>interventi pubblici seguiti</span></li>" +
+      '<li><b>' + mln(amm).replace(" mln", "") + "</b><span>milioni di euro assegnati, secondo le fonti ufficiali</span></li>" +
+      '<li class="rosso"><b>' + mln(spe).replace(" mln", "") + '</b><span>milioni risultano pagati nei dati pubblici</span><a href="#soldi">Segui i soldi</a></li>' +
+      '<li class="verde"><b>' + visti + "/" + INT.length + '</b><span>interventi visti sul posto dal tavolo</span><a href="#metodo">Come lavoriamo</a></li>' +
+      '<li class="blu"><b>' + SPAZI.length + '</b><span>spazi proposti da rivalorizzare</span><a href="#proponi">Proponi uno spazio</a></li>';
+  }
+
+  /* ================= interventi ================= */
+  var filtroInt = "";
+  var GRUPPI = [["", "Tutti"], ["marpiccolo", "Mar Piccolo"], ["greenbelt", "Green Belt"], ["verde", "Altro verde"], ["visti", "Visti sul posto"]];
+  function gruppoDi(x) { return x.gruppo || "marpiccolo"; }
+  function disegnaInterventi() {
+    $("#filtri-int").innerHTML = '<div class="pillole" role="group" aria-label="Gruppo">' + GRUPPI.map(function (g) {
+      var n = g[0] === "" ? INT.length : g[0] === "visti" ? INT.filter(function (x) { return ultimoSop(x.id); }).length : INT.filter(function (x) { return gruppoDi(x) === g[0]; }).length;
+      return '<button type="button" class="pillola" data-g="' + g[0] + '" aria-pressed="' + (filtroInt === g[0]) + '">' + g[1] + ' <span class="c">' + n + "</span></button>";
+    }).join("") + "</div>";
+    $$("#filtri-int .pillola").forEach(function (b) { b.addEventListener("click", function () { filtroInt = b.getAttribute("data-g"); disegnaInterventi(); }); });
+    var lista = INT.filter(function (x) { return !filtroInt || (filtroInt === "visti" ? ultimoSop(x.id) : gruppoDi(x) === filtroInt); });
+    $("#griglia").innerHTML = lista.length ? lista.map(function (x) {
+      var im = x.img[0] ? '<img src="img/' + x.img[0][0] + '" alt="" loading="lazy">' : '<span class="no-img" aria-hidden="true">' + x.n + "</span>";
+      var ops = opsDi(x.id), amm = somma("ammesso", ops);
+      var s = ultimoSop(x.id);
+      return '<li><a href="#' + x.id + '"><span class="testa"><span class="cod">INT-' + x.n + "</span>" + fasePill(x) + "</span>" + im + "<b>" + esc(x.nome) + '</b><span class="s">' + esc(x.sotto) + "</span>" +
+        '<span class="soldi-chip' + (amm ? "" : " vuoto") + '">' + (amm ? mln(amm) + " assegnati" : "Cifre non pubbliche") + "</span>" +
+        '<span class="sop-chip' + (s ? " si" : "") + '">' + esc(s ? "Visto sul posto il " + dataIt(s.data) : "Non ancora visto sul posto") + "</span></a></li>";
+    }).join("") : '<li class="nota">Nessun intervento in questo gruppo.</li>';
+    $("#altri-verdi").innerHTML = ALTRI_VERDI.map(function (v) { return "<li><b>" + esc(v[0]) + '</b> <span class="nota">· ' + fonteLink("comune", "Comune di Taranto, marzo 2026") + "</span></li>"; }).join("");
+  }
+
+  /* ================= scheda ================= */
+  function disegnaScheda(id) {
+    var x = perId[id], ord = [], num = {};
+    function r(f) { if (!f || !FONTI[f]) return ""; if (!num[f]) { ord.push(f); num[f] = ord.length; } return '<a class="rif" href="#' + id + '" data-vai="f-' + id + "-" + f + '">[' + num[f] + "]</a>"; }
+    function frasi(arr) { return arr.map(function (p) { return "<p>" + esc(p[0]) + r(p[1]) + "</p>"; }).join(""); }
+    var i = INT.indexOf(x), prima = INT[i - 1], dopo = INT[i + 1];
+    var lede = esc(x.lede[0]) + r(x.lede[1]);
+    var che = frasi(x.che), fin = frasi(x.finora), man = frasi(x.manca), ade = frasi(x.adesso);
+    /* sul posto */
+    var sop = sopDi(id);
+    var sul = sop.length ? '<ol class="sop-lista">' + sop.map(function (s) {
+      var campi = [["Lavori", s.lavori], ["Cartello di cantiere", s.cartello], ["Accesso", s.accesso], ["Rifiuti", s.rifiuti]].filter(function (c) { return c[1]; });
+      return '<li><p class="q">' + dataIt(s.data) + (s.chi ? " · " + esc(s.chi) : "") + "</p>" + (s.foto ? '<img src="img/campo/' + esc(s.foto) + '" alt="Foto del sopralluogo del ' + esc(dataIt(s.data)) + '" data-zoom loading="lazy">' : "") +
+        (campi.length ? '<dl class="dati">' + campi.map(function (c) { return "<div><dt>" + c[0] + "</dt><dd>" + esc(c[1]) + "</dd></div>"; }).join("") + "</dl>" : "") + (s.nota ? "<p>" + esc(s.nota) + "</p>" : "") + "</li>";
+    }).join("") + "</ol>" : '<p class="vuoto-box">Non l\'abbiamo ancora visto sul posto. Il prossimo sopralluogo del tavolo lo aggiungerà qui, con data e foto.</p>';
+    /* soldi */
+    var ops = opsDi(id);
+    var soldi = ops.length ? '<div class="tabella"><table><thead><tr><th scope="col">Opera</th><th scope="col" class="num">Assegnati</th><th scope="col" class="num">Pagati</th></tr></thead><tbody>' +
+      ops.map(function (o) { var a = o.ammesso[0] != null ? o.ammesso : o.previsto; return "<tr><td>" + esc(o.nome) + '<br><span class="nota">' + esc(o.fondo) + '</span></td><td class="num">' + (a[0] != null ? eur(a[0]) + r(a[1]) : "non pubblicato") + '</td><td class="num">' + (o.speso[0] != null ? eur(o.speso[0]) + r(o.speso[1]) : "non pubblicato") + "</td></tr>"; }).join("") +
+      "</tbody></table></div>" + ops.map(function (o) { return '<p class="nota">' + esc(o.stato) + "</p>"; }).join("") : "<p>" + esc(x.soldi[0]) + r(x.soldi[1]) + "</p>";
+    /* date annunciate */
+    var prom = (typeof PROMESSE !== "undefined" ? PROMESSE : []).filter(function (p) { return p.int === id && p.data; });
+    var date = prom.length ? '<ul class="date-lista">' + prom.map(function (p) {
+      var passata = p.data < oggiIso() && !p.fatto;
+      return '<li class="' + (p.fatto ? "fatto" : passata ? "passata" : "") + '"><span class="q">' + dataIt(p.data) + "</span><span>" + esc(p.cosa) + r(p.f) + (p.fatto ? ' <span class="pill verde">Fatto</span>' : passata ? ' <span class="pill rosso">Data passata, nessun atto trovato</span>' : "") + "</span></li>";
+    }).join("") + "</ul>" : "";
+    var crono = x.crono.slice().sort(function (a, b) { return a[0] < b[0] ? -1 : 1; }).map(function (c) {
+      var fut = c[0] > oggiIso();
+      return '<li class="' + (c[3] === "scadenza" ? "scadenza" : fut ? "futuro" : "") + '"><span class="q">' + dataIt(c[0], c[3]) + '</span><span class="t">' + esc(c[1]) + r(c[2]) + "</span></li>";
+    }).join("");
+    var gal = x.img.map(function (g) { r(g[2]); return '<figure><img src="img/' + g[0] + '" alt="' + esc(g[1]) + '" data-zoom loading="lazy"><figcaption>' + esc(g[1]) + " " + r(g[2]) + "</figcaption></figure>"; }).join("");
+    var nonpub = x.richieste.map(function (c) { return perCod[c]; }).filter(function (q) { return q && q[5] !== "trovato"; });
+    var mancaPub = nonpub.length ? '<ul class="semplice">' + nonpub.map(function (q) { return "<li>" + esc(q[1]) + ' <span class="nota">· ' + esc(q[2]) + "</span></li>"; }).join("") + "</ul>" : "";
+    var spaziV = SPAZI.filter(function (s) { return s.vicino === id; });
+    var docs = ord.map(function (f) {
+      var F = FONTI[f];
+      return '<li id="f-' + id + "-" + f + '"><span class="n">[' + num[f] + ']</span><span><span class="tipo ' + F.tipo + '">' + ETI_TIPO[F.tipo] + '</span> <span class="e">' + esc(F.ente) + " · " + esc(F.d) + "</span><br>" +
+        (F.u ? '<a href="' + esc(F.u) + '" target="_blank" rel="noopener">' + esc(F.t) + "</a>" : esc(F.t)) + "</span></li>";
+    }).join("");
+    $("#scheda").innerHTML =
+      '<nav class="scheda-nav" aria-label="Navigazione tra le schede"><a href="#interventi">Tutti gli interventi</a>' + (prima ? '<a href="#' + prima.id + '">← INT-' + prima.n + "</a>" : "") + (dopo ? '<a href="#' + dopo.id + '">INT-' + dopo.n + " →</a>" : "") + '<a href="#mappa" data-mappa="' + id + '">Vedi sulla mappa</a></nav>' +
+      '<header class="scheda-testa"><p class="cod">INT-' + x.n + " " + fasePill(x) + '<span class="chip ' + x.chi + '">' + ETI_CHI[x.chi] + '</span><span class="chip ' + x.fondi + '">' + (x.fondi === "jtf" ? "JTF" : "Altri fondi") + '</span></p><h1 tabindex="-1">' + esc(x.nome) + '</h1><p class="sotto">' + esc(x.sotto) + '</p><p class="lede">' + lede + "</p></header>" +
+      '<div class="confronto"><section class="riquadro"><p class="occhiello">Secondo gli atti</p><h2>' + esc(x.fase[1]) + "</h2>" + ade + '</section><section class="riquadro sul-posto"><p class="occhiello verde">Visto sul posto</p>' + sul + "</section></div>" +
+      '<div class="corpo"><div class="col">' +
+      '<section class="blocco"><h2>Che cos\'è</h2>' + che + "</section>" +
+      '<section class="blocco"><h2>Finora</h2>' + fin + "<h4>Cosa manca</h4>" + man + "</section>" +
+      '<section class="blocco"><h2>Soldi</h2>' + soldi + "</section>" +
+      (date ? '<section class="blocco"><h2>Date annunciate</h2>' + date + "</section>" : "") +
+      (gal ? '<section class="blocco"><h2>Immagini</h2><div class="galleria">' + gal + "</div></section>" : "") +
+      '<section class="blocco"><h2>Cronistoria</h2><ol class="cronologia">' + crono + "</ol></section>" +
+      (x.cv && x.cv.length ? '<section class="blocco cv-box"><h2>La lettura del tavolo</h2><ul>' + x.cv.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + '</ul><p class="nota">Lettura di Postilva, non dei documenti.</p></section>' : "") +
+      '<section class="blocco"><h2>Fonti</h2><ol class="doc-lista">' + docs + "</ol></section>" +
+      '</div><aside class="col lato" aria-label="In breve"><dl class="inbreve">' + x.breve.map(function (b) { return "<div><dt>" + esc(b[0]) + "</dt><dd>" + esc(b[1]) + "</dd></div>"; }).join("") + "</dl>" +
+      (mancaPub ? '<section class="blocco"><h2>Cosa non è ancora pubblico</h2>' + mancaPub + '<p class="nota">Lo chiediamo agli enti con richieste di accesso agli atti.</p></section>' : "") +
+      '<section class="blocco"><h2>Spazi proposti qui vicino</h2>' + (spaziV.length ? '<ul class="semplice">' + spaziV.map(function (s) { return '<li><a href="#proponi" data-dopo="sp-' + esc(s.id) + '">' + esc(s.nome) + "</a></li>"; }).join("") + "</ul>" : '<p class="nota">Nessuno per ora.</p>') + '<p><a class="bottone sec pic" href="#proponi">Proponi uno spazio</a></p></section></aside></div>';
+    $("[data-mappa]", $("#scheda")).addEventListener("click", function () { selezionato = null; setTimeout(function () { seleziona(id, false); }, 80); });
+  }
+
+  /* ================= soldi ================= */
+  function disegnaSoldi() {
+    var amm = somma("ammesso"), spe = somma("speso"), mp = STORICI[0];
+    $("#soldi-cifre").innerHTML = '<li><b>' + mln(amm).replace(" mln", "") + "</b><span>milioni assegnati alle opere con cifre pubbliche</span></li>" +
+      '<li class="rosso"><b>' + mln(spe).replace(" mln", "") + "</b><span>milioni risultano pagati</span></li>" +
+      '<li class="rosso"><b>' + Math.round(mp.pagato / mp.costo * 100) + '%</b><span>pagato della bonifica del Mar Piccolo da 55 milioni</span><a href="#soldi" data-vai="storici">Vedi sotto</a></li>' +
+      '<li class="ocra"><b>' + ANOMALIE.length + '</b><span>dati da chiarire tra fonti ufficiali</span><a href="#soldi" data-vai="d-anomalie">Vedi sotto</a></li>';
+    var righe = INT.map(function (x) {
+      var ops = opsDi(x.id);
+      if (!ops.length) return '<tr><td><a href="#' + x.id + '">INT-' + x.n + " " + esc(x.nome) + "</a></td><td>" + ETI_CHI[x.chi] + '</td><td colspan="2" class="nota">' + esc(x.breve[0][1]) + "</td><td>" + fasePill(x) + "</td></tr>";
+      var a = ops.reduce(function (s, o) { return s + ((o.ammesso[0] != null ? o.ammesso[0] : o.previsto[0]) || 0); }, 0);
+      var p = ops.some(function (o) { return o.speso[0] != null; }) ? somma("speso", ops) : null;
+      return '<tr><td><a href="#' + x.id + '">INT-' + x.n + " " + esc(x.nome) + '</a><br><span class="nota">' + esc(ops[0].fondo) + (ops.length > 1 ? " e altri" : "") + "</span></td><td>" + ETI_CHI[x.chi] + '</td><td class="num">' + eur(a) + '</td><td class="num">' + (p != null ? eur(p) : '<span class="nota">non pubblicato</span>') + "</td><td>" + fasePill(x) + "</td></tr>";
+    }).join("");
+    $("#soldi-tab").innerHTML = '<thead><tr><th scope="col">Intervento</th><th scope="col">Chi</th><th scope="col" class="num">Assegnati</th><th scope="col" class="num">Pagati</th><th scope="col">Stato</th></tr></thead><tbody>' + righe + "</tbody>";
+    $("#storici").innerHTML = '<div class="storici">' + STORICI.map(function (t) {
+      var pc = t.costo ? t.pagato / t.costo * 100 : 0, x = t.int && perId[t.int], passata = t.fine && t.fine < oggiIso();
+      return '<article class="sto"><div class="op-testa"><b>' + esc(t.nome) + '</b><span class="chip ' + t.chi + '">' + ETI_CHI[t.chi] + '</span><span class="nota">' + esc(t.fondo) + "</span>" + (x ? '<a class="nota" href="#' + x.id + '">INT-' + x.n + "</a>" : "") + "</div>" +
+        '<div class="paga" role="img" aria-label="Pagato il ' + pc.toFixed(1).replace(".", ",") + ' per cento"><span style="width:' + Math.max(pc, 0.6) + '%"></span></div>' +
+        '<p class="paga-num"><b>' + eur(t.pagato) + "</b> pagati su " + eur(t.costo) + ' · <b class="' + (pc < 20 ? "rosso" : "") + '">' + (pc < 1 && pc > 0 ? "meno dell'1" : Math.round(pc)) + "%</b>" + (t.ultimo ? " · ultimo pagamento: " + t.ultimo : " · nessun pagamento") + "</p>" +
+        '<p class="nota">' + (t.fine ? (passata ? '<span class="pill rosso">Fine prevista ' + dataIt(t.fine) + "</span> " : "Fine prevista: " + dataIt(t.fine) + " · ") : "") + esc(t.nota) + " · " + fonteLink(t.f, "OpenCoesione") + "</p></article>";
+    }).join("") + '</div><p class="nota" style="margin-top:10px">Tutti i progetti del Commissario per le bonifiche su OpenCoesione: ' + COMMISSARIO_OC.progetti + " progetti, " + eur(COMMISSARIO_OC.costo) + " di costo pubblico, " + eur(COMMISSARIO_OC.pagato) + " pagati. " + fonteLink(COMMISSARIO_OC.f, "Fonte") + ".</p>";
+    $("#anomalie").innerHTML = ANOMALIE.map(function (a) { return "<li><b>" + esc(a[0]) + "</b><span>" + esc(a[1]) + '</span><span class="nota">Fonti: ' + a[2].map(function (f) { return fonteLink(f); }).join(", ") + "</span></li>"; }).join("");
+    $("#soldi-anni").innerHTML = graficoAnni();
+    var tp = PROCEDURE_23.reduce(function (a, p) { return [a[0] + p[1], a[1] + (p[3] || 0)]; }, [0, 0]);
+    $("#procedure").innerHTML = '<div class="tabella" style="margin-top:10px"><table><thead><tr><th scope="col">Procedura</th><th scope="col" class="num">Valore</th><th scope="col" class="num">Ammesso</th><th scope="col" class="num">Certificato alla UE</th></tr></thead><tbody>' +
+      PROCEDURE_23.map(function (p) { return "<tr><td>" + esc(p[0]) + '</td><td class="num">' + eur(p[1]) + '</td><td class="num">' + (p[2] != null ? eur(p[2]) : "non disponibile") + '</td><td class="num">' + (p[3] != null ? eur(p[3]) : "non disponibile") + "</td></tr>"; }).join("") +
+      '<tr><td><b>Totale</b></td><td class="num"><b>' + eur(tp[0]) + '</b></td><td></td><td class="num"><b>' + eur(tp[1]) + "</b></td></tr></tbody></table></div>" +
+      '<p class="nota" style="margin-top:6px">' + fonteLink("jtfproc", "Fonte: jtf.gov.it, elenco delle procedure") + ", letto il 23/11/2026.</p>";
+    $("#jtf-soldi").innerHTML = barraJtf();
+    $("#movimenti").innerHTML = MOVIMENTI.map(function (m) { return '<li><span class="q">' + dataIt(m[0]) + '</span><span class="t">' + esc(m[1]) + " " + fonteLink(m[3], "fonte") + "</span></li>"; }).join("");
+    var box = $("#soldi-anni .grafico-box"), tip = $(".tip", box);
+    $$(".barra", box).forEach(function (b) {
+      function mostra() { tip.textContent = b.getAttribute("data-t"); tip.hidden = false; var rr = box.getBoundingClientRect(), br = b.getBoundingClientRect(); tip.style.left = Math.min(rr.width - 220, Math.max(0, br.left - rr.left + br.width / 2 - 110)) + "px"; tip.style.top = Math.max(0, br.top - rr.top - 44) + "px"; }
+      b.addEventListener("mouseenter", mostra); b.addEventListener("focus", mostra); b.addEventListener("click", mostra);
+      b.addEventListener("mouseleave", function () { tip.hidden = true; }); b.addEventListener("blur", function () { tip.hidden = true; });
+    });
+  }
+  function barraJtf() {
+    var T = CONTESTO.target2026[0], c = CONTESTO.certificato2026[0], p = CONTESTO.previsto2026[0];
+    return '<div class="jtf-barra" role="img" aria-label="Target di spesa 2026 per Taranto ' + mln(T) + ": certificati " + mln(c) + ", previsti altri " + mln(p) + '"><span class="seg cert" style="width:' + (c / T * 100) + '%"></span><span class="seg prev" style="width:' + (p / T * 100) + '%"></span></div>' +
+      '<ul class="jtf-leg"><li><i class="cert"></i>Certificati alla UE nel 2026: <b>' + mln(c) + '</b></li><li><i class="prev"></i>Previsti entro fine anno: <b>' + mln(p) + '</b></li><li><i class="manca"></i>Mancano al target: <b>' + mln(T - c - p) + "</b></li></ul>" +
+      '<p class="nota">Target di spesa al 31/12/2026 per la Provincia di Taranto: ' + eur(T) + ". Dotazione JTF per Taranto: " + eur(CONTESTO.dotazione[0]) + ". Fonti: " + fonteLink("decipcei", "decreto dell'Autorità di gestione, 6/08/2026") + ", " + fonteLink("det220", "Regione Puglia") + ".</p>";
+  }
+  var COL_SERIE = { "op-fvterra": "#3a9e70", "op-seahub": "#7b8fe0", "op-arconord": "#c08020" };
+  function graficoAnni() {
+    var serie = OPERAZIONI.filter(function (o) { return o.prenot; });
+    var anni = [2026, 2027, 2028, 2029], tot = anni.map(function (a, i) { return serie.reduce(function (s, o) { return s + o.prenot[i][1]; }, 0); });
+    var max = 25e6, W = 640, H = 300, L = 44, B = 28, T = 26, cw = (W - L - 8) / anni.length, bw = Math.min(64, cw * 0.5);
+    var y = function (v) { return H - B - v / max * (H - B - T); };
+    var g = '<svg viewBox="0 0 ' + W + " " + H + '" class="grafico" role="img" aria-labelledby="g-anni-t"><title id="g-anni-t">Soldi impegnati o prenotati dalla Regione per anno, 2026-2029</title>';
+    [0, 5e6, 10e6, 15e6, 20e6, 25e6].forEach(function (v) { g += '<line x1="' + L + '" x2="' + (W - 8) + '" y1="' + y(v) + '" y2="' + y(v) + '" class="griglia"/><text x="' + (L - 6) + '" y="' + (y(v) + 4) + '" class="asse" text-anchor="end">' + (v / 1e6) + "</text>"; });
+    g += '<text x="' + L + '" y="12" class="asse">milioni di euro</text>';
+    anni.forEach(function (a, i) {
+      var cx = L + cw * i + cw / 2, base = 0;
+      serie.forEach(function (o, j) {
+        var v = o.prenot[i][1], y0 = y(base), y1 = y(base + v), h = Math.max(0, y0 - y1 - (j ? 2 : 0)), top = j === serie.length - 1;
+        g += '<g class="barra" tabindex="0" role="img" aria-label="' + a + ", " + esc(o.nome) + ": " + eur(v) + '" data-t="' + esc(a + " · " + o.nome + ": " + eur(v)) + '">' +
+          (top ? '<path d="M' + (cx - bw / 2) + "," + (y0 - (j ? 2 : 0)) + "V" + (y1 + 4) + "q0,-4 4,-4H" + (cx + bw / 2 - 4) + "q4,0 4,4V" + (y0 - (j ? 2 : 0)) + 'Z" fill="' + COL_SERIE[o.id] + '"/>' : '<rect x="' + (cx - bw / 2) + '" y="' + y1 + '" width="' + bw + '" height="' + h + '" fill="' + COL_SERIE[o.id] + '"/>') +
+          '<rect x="' + (cx - cw / 2) + '" y="' + y1 + '" width="' + cw + '" height="' + Math.max(h, 6) + '" fill="transparent"/></g>';
+        base += v;
+      });
+      g += '<text x="' + cx + '" y="' + (y(base) - 8) + '" class="val" text-anchor="middle">' + mln(tot[i]).replace(" mln", "") + "</text>";
+      g += '<text x="' + cx + '" y="' + (H - 8) + '" class="asse" text-anchor="middle">' + a + "</text>";
+    });
+    g += "</svg>";
+    var leg = '<ul class="legenda-g">' + serie.map(function (o) { return '<li><i style="background:' + COL_SERIE[o.id] + '"></i>' + esc(o.nome) + "</li>"; }).join("") + "</ul>";
+    var tab = '<details class="tab-dati"><summary>Vedi i numeri</summary><div class="tabella"><table><thead><tr><th scope="col">Opera</th>' + anni.map(function (a) { return '<th scope="col" class="num">' + a + "</th>"; }).join("") + '<th scope="col">Fonte</th></tr></thead><tbody>' +
+      serie.map(function (o) { return "<tr><td>" + esc(o.nome) + "</td>" + o.prenot.map(function (p) { return '<td class="num">' + eur(p[1]) + "</td>"; }).join("") + "<td>" + fonteLink(o.prenotF) + "</td></tr>"; }).join("") +
+      '<tr><td><b>Totale</b></td>' + tot.map(function (t) { return '<td class="num"><b>' + eur(t) + "</b></td>"; }).join("") + "<td></td></tr></tbody></table></div></details>";
+    return '<p class="nota" style="margin-top:8px">Le spese dei fondi europei sono ammissibili solo se pagate entro il 31 dicembre 2029 (' + fonteLink("reg1060", "regolamento UE 2021/1060") + ").</p>" + leg + '<div class="grafico-box">' + g + '<div class="tip" role="status" hidden></div></div>' + tab;
+  }
+
+  /* ================= proponi ================= */
+  function disegnaProponi() {
+    var box = $("#prop-form");
+    if (CONFIG.moduloEsterno) {
+      box.innerHTML = '<p>Compila il modulo: ci vogliono due minuti.</p><p style="margin-top:12px"><a class="bottone" href="' + esc(CONFIG.moduloEsterno) + '" target="_blank" rel="noopener">Apri il modulo</a></p>';
+    } else if (!box.firstChild) {
+      box.innerHTML = '<form class="form" id="f-prop" novalidate>' +
+        '<div class="campo"><label for="p-nome">Che luogo è</label><input id="p-nome" name="nome" required maxlength="120" placeholder="Es.: giardino chiuso dietro la scuola"></div>' +
+        '<div class="campo"><label for="p-dove">Dove si trova</label><input id="p-dove" name="dove" required maxlength="160" placeholder="Via, quartiere o punto di riferimento"></div>' +
+        '<div class="campo pieno"><span class="et-campo">Sulla mappa (facoltativo)</span><p class="pos-riga"><span id="p-pos">Non indicato</span><button type="button" class="bottone sec pic" id="p-mappa">Indica il punto sulla mappa</button></p></div>' +
+        '<div class="campo pieno"><label for="p-cosa">Cosa proponi</label><textarea id="p-cosa" name="cosa" rows="4" required maxlength="1500" placeholder="Es.: aprirlo al quartiere, piantare alberi da ombra, un orto condiviso"></textarea></div>' +
+        '<div class="campo pieno"><label for="p-perche">Perché è importante (facoltativo)</label><textarea id="p-perche" name="perche" rows="2" maxlength="800"></textarea></div>' +
+        '<div class="campo"><label for="p-tu">Il tuo nome (facoltativo)</label><input id="p-tu" name="tu" maxlength="80" autocomplete="name"></div>' +
+        '<div class="campo"><label for="p-cont">Telefono o email, se vuoi essere richiamato</label><input id="p-cont" name="cont" maxlength="120"></div>' +
+        '<label class="spunta pieno"><input type="checkbox" name="ok" id="p-ok" required> Acconsento a pubblicare luogo, descrizione e data della proposta su questa pagina. Nome e contatti non vengono pubblicati.</label>' +
+        '<p class="pieno" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><button type="submit" class="bottone">Invia la proposta</button><span class="esito-msg" id="p-msg" role="status"></span></p>' +
+        '<p class="nota pieno">Si apre il tuo programma di posta con il testo già scritto, indirizzato a ' + esc(CONFIG.emailProposte) + '. Puoi allegare una foto prima di inviare.</p></form>';
+      var f = $("#f-prop");
+      $("#p-mappa").addEventListener("click", function () { ["nome", "dove", "cosa", "perche", "tu", "cont"].forEach(function (k) { bozza[k] = f[k].value; }); iniziaPosa(); });
+      f.addEventListener("submit", function (e) {
+        e.preventDefault(); var m = $("#p-msg");
+        if (!f.nome.value.trim() || !f.dove.value.trim() || !f.cosa.value.trim()) { m.textContent = "Scrivi che luogo è, dove si trova e cosa proponi."; return; }
+        if (!f.ok.checked) { m.textContent = "Serve il consenso a pubblicare la proposta."; return; }
+        var corpo = "PROPOSTA PER CANTIERE VERDE\n\nLuogo: " + f.nome.value.trim() + "\nDove: " + f.dove.value.trim() + (bozza.lng != null ? "\nPosizione: " + bozza.lat + ", " + bozza.lng : "") +
+          "\n\nCosa propongo:\n" + f.cosa.value.trim() + (f.perche.value.trim() ? "\n\nPerché:\n" + f.perche.value.trim() : "") +
+          "\n\nNome: " + (f.tu.value.trim() || "-") + "\nContatto: " + (f.cont.value.trim() || "-") + "\nConsenso a pubblicare luogo, descrizione e data: sì\nData: " + dataIt(oggiIso());
+        var url = "mailto:" + CONFIG.emailProposte + "?subject=" + encodeURIComponent("Cantiere verde: proposta per " + f.nome.value.trim()) + "&body=" + encodeURIComponent(corpo);
+        window.location.href = url;
+        m.textContent = "Si sta aprendo la posta. Se non si apre, copia il testo qui sotto e mandalo a " + CONFIG.emailProposte + ".";
+        var ta = $("#p-testo"); if (!ta) { ta = document.createElement("textarea"); ta.id = "p-testo"; ta.readOnly = true; ta.rows = 8; ta.className = "testo-copia"; ta.setAttribute("aria-label", "Testo della proposta"); f.appendChild(ta); }
+        ta.value = corpo;
+      });
+    }
+    var f2 = $("#f-prop");
+    if (f2) {
+      ["nome", "dove", "cosa", "perche", "tu", "cont"].forEach(function (k) { if (bozza[k] && !f2[k].value) f2[k].value = bozza[k]; });
+      if (bozza.lng != null) $("#p-pos").textContent = bozza.lat + ", " + bozza.lng;
+    }
+    var l = SPAZI.slice().sort(function (a, b) { return (a.data || "") < (b.data || "") ? 1 : -1; });
+    $("#spazi-lista").innerHTML = l.length ? '<ul class="spazi">' + l.map(function (s) {
+      var st = STATI_SPAZIO[s.stato] || STATI_SPAZIO.segnalata, x = s.vicino && perId[s.vicino];
+      return '<li id="sp-' + esc(s.id) + '"><div class="prom-testa"><span class="q">' + esc(s.id) + " · " + dataIt(s.data) + '</span><span class="pill ' + st[0] + '">' + st[1] + "</span></div><b>" + esc(s.nome) + '</b><span class="nota">' + esc(s.dove) + (s.canale ? " · arrivata da: " + esc(s.canale) : "") + "</span><p>" + esc(s.cosa) + "</p>" +
+        (s.esito ? '<p class="prova">' + esc(s.esito) + "</p>" : "") + (x ? '<a class="nota" href="#' + x.id + '">Vicino a INT-' + x.n + " " + esc(x.nome) + "</a>" : "") + "</li>";
+    }).join("") + "</ul>" : '<p class="vuoto-box">Ancora nessuna proposta pubblicata. Le proposte compaiono qui dopo che il tavolo le ha ricevute, con la data e lo stato.</p>';
+  }
+
+  /* ================= fonti ================= */
+  function disegnaArchivio() {
+    if (disegnaArchivio.fatto) return; disegnaArchivio.fatto = true;
+    var gruppi = [["atto", "Atti ufficiali"], ["ente", "Pubblicazioni degli enti"], ["perc", "Documenti del percorso partecipativo"]];
+    $("#arch").innerHTML = gruppi.map(function (g) {
+      var ids = Object.keys(FONTI).filter(function (k) { return FONTI[k].tipo === g[0]; });
+      return '<details class="apri"><summary><h3>' + g[1] + '</h3><span class="nota">' + ids.length + " documenti</span></summary><div class=\"arch\">" + ids.map(function (k) {
+        var F = FONTI[k];
+        return '<div class="arch-r"><span class="top">' + esc(F.ente) + " · " + esc(F.d) + "</span>" + (F.u ? '<a class="t" href="' + esc(F.u) + '" target="_blank" rel="noopener">' + esc(F.t) + "</a>" : "<b>" + esc(F.t) + "</b>") + "</div>";
+      }).join("") + "</div></details>";
+    }).join("");
+  }
+
+  /* ================= avvio ================= */
+  var agg = "Aggiornato al " + dataIt(CONFIG.aggiornato);
+  $("#agg-pill").textContent = agg; $("#agg-piede").textContent = agg.toLowerCase();
+  $("#posa-annulla").addEventListener("click", function () { finePosa(); location.hash = "#proponi"; });
+  disegnaCifre(); disegnaFiltri(); disegnaPannello();
+  instrada();
+})();
+
+</script>
+
+</body></html>
