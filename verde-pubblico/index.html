@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cantiere verde · Postilva</title>
-<meta name="description" content="Cantiere verde di Postilva: gli interventi pubblici su verde, coste e bonifiche a Taranto, lo stato dei lavori visto sul posto e le proposte dei cittadini.">
-<link rel="canonical" href="https://www.postilva.it/cantiere-verde/">
+<title>Verde pubblico · Postilva</title>
+<meta name="description" content="Verde pubblico, un progetto di Postilva: gli interventi pubblici su verde, coste e bonifiche a Taranto, lo stato dei lavori visto sul posto e le proposte dei cittadini.">
+<link rel="canonical" href="https://www.postilva.it/verde-pubblico/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Postilva">
-<meta property="og:title" content="Cantiere verde · Postilva">
+<meta property="og:title" content="Verde pubblico · Postilva">
 <meta property="og:description" content="Gli interventi pubblici sul verde a Taranto: dove sono, quanti soldi, a che punto sono. E gli spazi da rivalorizzare proposti dai cittadini.">
-<meta property="og:url" content="https://www.postilva.it/cantiere-verde/">
+<meta property="og:url" content="https://www.postilva.it/verde-pubblico/">
 <meta property="og:image" content="https://www.postilva.it/img/anteprime/verde.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b0b0c">
@@ -28,7 +28,7 @@
 </style>
 <script src="maplibre-gl.js"></script>
 <style>
-/* Cantiere verde · Interventi sul Mar Piccolo.
+/* Verde pubblico (progetto del tavolo Cantiere verde) · Interventi sul Mar Piccolo.
    Impianto «Notte industriale» del sito di Postilva: un solo tema scuro, Space Grotesk per i testi,
    IBM Plex Mono per titoletti e dati, rosso per l'azione e il dato principale, blu notte per il mare.
    Layout: barra fissa con le sezioni; Mappa = mappa e pannello affiancati; le altre viste a tutta larghezza. */
@@ -496,7 +496,7 @@ details.apri > summary h2, details.apri > summary h3 { display: inline; }
 
 /* ===== 27/11/2026 (Gabriele): impianto degli altri strumenti del portale (bonifiche.postilva.it, patrimonio.postilva.it):
    striscia Postilva in alto, barra dello strumento sotto, apertura con foto e titolo in Anton.
-   Colore del Cantiere verde: verde foglia, accanto all'arancio di Bonifiche e al giallo tufo di Patrimonio. */
+   Colore di Verde pubblico: verde foglia, accanto all'arancio di Bonifiche e al giallo tufo di Patrimonio. */
 :root { --acc: #8fc96b; --acc-vivo: #a6d886; --acc-soft: #172314; --on-acc: #111111; --f-firma: "Anton", Impact, "Arial Narrow", sans-serif; --alto: 57px; }
 a:hover { text-decoration-color: var(--acc); }
 :focus-visible { outline-color: var(--acc); }
@@ -577,7 +577,7 @@ a:hover { text-decoration-color: var(--acc); }
 
 <!-- barra dello strumento -->
 <div class="barra g"><div class="w">
-  <a class="marchio" href="#mappa" aria-label="Cantiere verde, pagina iniziale"><span class="nome">Cantiere <em>verde</em></span></a>
+  <a class="marchio" href="#mappa" aria-label="Verde pubblico, pagina iniziale"><span class="nome">Verde <em>pubblico</em></span></a>
   <nav class="menu" aria-label="Sezioni">
     <a href="#mappa" data-nav="mappa">Mappa</a>
     <a href="#interventi" data-nav="interventi">Interventi</a>
@@ -592,7 +592,7 @@ a:hover { text-decoration-color: var(--acc); }
 <section class="vista" data-vista="mappa" aria-labelledby="t-mappa">
   <div class="copertina g" role="img" aria-label="Foto: prato e alberi davanti alla Masseria Capitignano, Taranto"><div class="w">
     <div class="copertina-testo">
-      <p class="kicker">Taranto · verde pubblico · <span id="agg-pill"></span></p>
+      <p class="kicker">Taranto · interventi pubblici · <span id="agg-pill"></span></p>
       <h1 id="t-mappa" tabindex="-1">Il verde di Taranto: <em>a che punto siamo.</em></h1>
       <p class="sotto">Diciotto interventi pubblici su verde, coste e bonifiche, con le fonti ufficiali. Il tavolo Cantiere verde di Postilva va sul posto a verificare lo stato dei lavori e raccoglie le vostre proposte su altri spazi da recuperare.</p>
       <a class="bottone" href="#mappa" id="scendi">Apri la mappa</a>
@@ -693,7 +693,7 @@ a:hover { text-decoration-color: var(--acc); }
 </main>
 
 <footer class="piede"><div class="gutter">
-  <p>Cantiere verde · <a href="/verde/">Tavolo 3</a> di <a href="/">Postilva</a> · <span id="agg-piede"></span></p>
+  <p>Verde pubblico · un progetto del <a href="/verde/">tavolo Cantiere verde</a> di <a href="/">Postilva</a> · <span id="agg-piede"></span></p>
   <p>Mappa © OpenStreetMap contributors (ODbL). Immagini degli interventi: Comune di Taranto, presentazione al percorso partecipativo, marzo 2026. Foto di apertura: AntonioCaso93, CC BY-SA 4.0, Wikimedia Commons.</p>
 </div></footer>
 
@@ -1172,10 +1172,10 @@ a:hover { text-decoration-color: var(--acc); }
         e.preventDefault(); var m = $("#p-msg");
         if (!f.nome.value.trim() || !f.dove.value.trim() || !f.cosa.value.trim()) { m.textContent = "Scrivi che luogo è, dove si trova e cosa proponi."; return; }
         if (!f.ok.checked) { m.textContent = "Serve il consenso a pubblicare la proposta."; return; }
-        var corpo = "PROPOSTA PER CANTIERE VERDE\n\nLuogo: " + f.nome.value.trim() + "\nDove: " + f.dove.value.trim() + (bozza.lng != null ? "\nPosizione: " + bozza.lat + ", " + bozza.lng : "") +
+        var corpo = "PROPOSTA PER VERDE PUBBLICO\n\nLuogo: " + f.nome.value.trim() + "\nDove: " + f.dove.value.trim() + (bozza.lng != null ? "\nPosizione: " + bozza.lat + ", " + bozza.lng : "") +
           "\n\nCosa propongo:\n" + f.cosa.value.trim() + (f.perche.value.trim() ? "\n\nPerché:\n" + f.perche.value.trim() : "") +
           "\n\nNome: " + (f.tu.value.trim() || "-") + "\nContatto: " + (f.cont.value.trim() || "-") + "\nConsenso a pubblicare luogo, descrizione e data: sì\nData: " + dataIt(oggiIso());
-        var url = "mailto:" + CONFIG.emailProposte + "?subject=" + encodeURIComponent("Cantiere verde: proposta per " + f.nome.value.trim()) + "&body=" + encodeURIComponent(corpo);
+        var url = "mailto:" + CONFIG.emailProposte + "?subject=" + encodeURIComponent("Verde pubblico: proposta per " + f.nome.value.trim()) + "&body=" + encodeURIComponent(corpo);
         window.location.href = url;
         m.textContent = "Si sta aprendo la posta. Se non si apre, copia il testo qui sotto e mandalo a " + CONFIG.emailProposte + ".";
         var ta = $("#p-testo"); if (!ta) { ta = document.createElement("textarea"); ta.id = "p-testo"; ta.readOnly = true; ta.rows = 8; ta.className = "testo-copia"; ta.setAttribute("aria-label", "Testo della proposta"); f.appendChild(ta); }

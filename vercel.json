@@ -10,6 +10,11 @@
       "source": "/mar-piccolo/",
       "destination": "/verde/",
       "permanent": false
+    },
+    {
+      "source": "/cantiere-verde/",
+      "destination": "/verde-pubblico/",
+      "permanent": true
     }
   ]
 }

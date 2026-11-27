@@ -1,5 +1,5 @@
 /* ===================================================================================
-   CANTIERE VERDE · DATI DA AGGIORNARE
+   VERDE PUBBLICO · DATI DA AGGIORNARE
    Questo è l'unico file da modificare dopo ogni sopralluogo o nuova proposta.
    Si apre con un editor di testo. Dopo la modifica si ricarica il file sul sito.
    Regole: date nel formato "AAAA-MM-GG"; testi tra virgolette doppie; virgola tra un elemento e l'altro.
