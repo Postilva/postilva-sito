@@ -12,9 +12,14 @@
       "permanent": false
     },
     {
+      "source": "/verde-pubblico/",
+      "destination": "/verde/",
+      "permanent": false
+    },
+    {
       "source": "/cantiere-verde/",
-      "destination": "/verde-pubblico/",
-      "permanent": true
+      "destination": "/verde/",
+      "permanent": false
     }
   ]
 }

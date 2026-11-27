@@ -35,7 +35,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .brand { font: 700 1.05rem/1 var(--f-body); text-decoration: none; white-space: nowrap; letter-spacing: -0.02em; }
 .brand span.firma { color: var(--ink); }
-.topbar nav { margin-left: auto; display: flex; gap: 2px; overflow-x: auto; }
+.topbar nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
 .topbar nav a { white-space: nowrap; padding: 10px 12px; border-radius: 999px; font: 600 0.9rem/1 var(--f-body); color: var(--ink-2); text-decoration: none; }
 .topbar nav a[aria-current="page"] { background: var(--pill); color: var(--ink); }
 
@@ -378,9 +378,18 @@ a.riq:hover { background: var(--surface-2); }
 .marchio { height: 40px; width: auto; flex: none; color: var(--ink); }
 .piede .brand .marchio { height: 52px; }
 
-/* Telefono e tablet stretto (18/11/2026): nel menù restano Tavoli e Partecipa, così il bottone si vede; Chi siamo, Progetti e Trasparenza sono nel piede */
+/* Menù (27/11/2026): su computer Chi siamo, Trasparenza e Partecipa in fila; su telefono e tablet stretto il bottone
+   Partecipa e il menù ad hamburger (un <details>: funziona anche senza script), che apre le voci sotto la barra. */
+.hmenu { display: none; }
+.hmenu summary { list-style: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; color: var(--ink); cursor: pointer; }
+.hmenu summary::-webkit-details-marker { display: none; }
+.hmenu[open] summary { background: var(--pill); }
+.hmenu-lista { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 18px 30px rgba(0, 0, 0, 0.5); padding: 6px max(16px, env(safe-area-inset-right, 0px)) 14px max(16px, env(safe-area-inset-left, 0px)); display: grid; }
+.topbar nav .hmenu-lista a { padding: 16px 4px; border-radius: 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; color: var(--ink); }
+.topbar nav .hmenu-lista a:last-child { border-bottom: 0; }
 @media (max-width: 760px) {
-  .topbar nav a[href$="associazione/"], .topbar nav a[href$="#progetti"], .topbar nav a[href$="trasparenza/"] { display: none; }
+  .topbar nav a.voce { display: none; }
+  .hmenu { display: block; margin-left: 4px; }
   .marchio { height: 34px; }
 }
 
@@ -396,36 +405,41 @@ a.riq:hover { background: var(--surface-2); }
 .tfoto .tag { position: absolute; top: 12px; left: 12px; z-index: 1; display: flex; align-items: center; gap: 6px; background: rgba(11, 11, 12, 0.75); color: #ffffff; border-radius: 999px; padding: 6px 10px; font: 700 0.7rem/1 var(--f-mono); letter-spacing: 0.08em; }
 .tfoto .tag .ico { width: 16px; height: 16px; color: var(--rosso-vivo); }
 
-/* «In primo piano» in home (20/11/2026): fascia rossa al posto dei numeri; solo rosso, bianco e i font già in uso. */
-.primo-piano { background: #212D57; color: #ffffff; padding-block: 34px; } /* blu Postilva (Antonio, 23/11/2026) */
-.primo-piano .eyebrow { color: rgba(255, 255, 255, 0.85); }
-.pp-et { display: flex; align-items: center; gap: 8px; }
-.pp-et .ico { width: 16px; height: 16px; }
-.pp-griglia { display: grid; gap: 26px; margin-top: 12px; }
-.pp-tit { font: 700 clamp(1.9rem, 7vw, 2.8rem)/1.05 var(--f-body); letter-spacing: -0.03em; }
-.pp-tit span { color: #ffffff; font-weight: 400; }
-.pp-testo { margin-top: 12px; font-size: 1.05rem; line-height: 1.45; max-width: 52ch; }
-.pp-btn { margin-top: 18px; background: #ffffff; color: #212D57; }
-.pp-prima ul { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid rgba(255, 255, 255, 0.35); }
-.pp-prima li { border-bottom: 1px solid rgba(255, 255, 255, 0.35); }
-.pp-prima a { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px 0; color: #ffffff; text-decoration: none; font-weight: 600; }
-.pp-prima .pp-data { font: 700 0.72rem/1 var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
-.pp-prima .ico { width: 18px; height: 18px; }
-@media (min-width: 760px) { .primo-piano { padding-block: 44px; } .pp-griglia { grid-template-columns: 1.4fr 1fr; align-items: end; gap: 48px; } }
-/* «In primo piano» a scorrimento (23/11/2026) */
-.pp-scorre { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.pp-scorre::-webkit-scrollbar { display: none; }
-.pp-scorre:focus-visible { outline: 3px solid #ffffff; outline-offset: 6px; border-radius: 6px; }
-.pp-scheda { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; padding-right: 8px; }
-.pp-scheda .pp-tit { margin-top: 12px; max-width: 26ch; }
-.pp-nav { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
-.pp-freccia { width: 42px; height: 42px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); background: transparent; color: #ffffff; font-size: 1.4rem; line-height: 1; cursor: pointer; }
-.pp-freccia:disabled { opacity: 0.35; cursor: default; }
-.pp-freccia:not(:disabled):hover { background: rgba(255, 255, 255, 0.12); }
-.pp-punti { display: flex; gap: 6px; }
-.pp-punti button { width: 22px; height: 22px; padding: 5px; border: 0; background: none; cursor: pointer; }
-.pp-punti button::before { content: ""; display: block; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #ffffff; }
-.pp-punti button[aria-current="true"]::before { background: #ffffff; }
+/* «In primo piano» a pannelli (Antonio, 27/11/2026): sei pannelli verticali, uno per tavolo, foto in bicromia.
+   Colore solo per i tavoli con uno strumento online, lo stesso dello strumento (--c: arancio #ff6a2b di Bonifiche,
+   giallo tufo #e0b56a di Patrimonio comune); gli altri grigi. Nessun colore nuovo. Su telefono scorrono di lato. */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pv-fascia { background: var(--bg); border-block: 1px solid var(--line); }
+.pv-riga-pannelli { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.pv-riga-pannelli::-webkit-scrollbar { display: none; }
+.pv { --c: #8a8a93; position: relative; flex: 0 0 min(64vw, 300px); height: clamp(420px, 62vh, 600px); scroll-snap-align: start; display: flex; flex-direction: column; justify-content: space-between; color: #ffffff; text-decoration: none; overflow: hidden; border-right: 1px solid rgba(0, 0, 0, 0.55); isolation: isolate; }
+.pv:last-child { border-right: 0; }
+.pv-foto { position: absolute; inset: 0; z-index: -1; background: var(--c); }
+.pv-foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: multiply; transition: transform 0.6s ease; }
+.pv:not(.on) .pv-foto img { filter: grayscale(1) contrast(1.05) brightness(0.8); }
+.pv-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11, 11, 12, 0.25) 0%, rgba(11, 11, 12, 0) 22%, rgba(11, 11, 12, 0) 45%, rgba(11, 11, 12, 0.88) 78%, #0b0b0c 100%); }
+.pv-sigla { display: flex; align-items: center; gap: 8px; padding: 26px 24px 0; font: 700 0.8rem/1 var(--f-mono); letter-spacing: 0.08em; }
+.pv-sigla .ico { width: 20px; height: 20px; }
+.pv:not(.on) .pv-sigla { color: rgba(255, 255, 255, 0.6); }
+.pv-corpo { display: block; padding: 0 24px 26px; }
+.pv-et, .pv-riga { font: 700 0.72rem/1.2 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; margin: 0; }
+.pv-tit { font: 400 clamp(2.3rem, 9vw, 2.9rem)/0.98 "Anton", Impact, var(--f-body); letter-spacing: 0.005em; margin: 6px 0 10px; }
+.pv-tit span { display: block; color: var(--c); }
+.pv:not(.on) .pv-tit { color: #d4d4d8; }
+.pv:not(.on) .pv-et, .pv:not(.on) .pv-riga { color: var(--ink-2); }
+.pv-btn { display: inline-flex; align-items: center; min-height: 46px; margin-top: 18px; padding: 0 20px; border-radius: 999px; background: var(--c); color: #111111; font: 700 1rem/1 var(--f-body); }
+.pv:not(.on) .pv-btn { background: rgba(255, 255, 255, 0.06); color: var(--ink-2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22); font-weight: 500; font-size: 0.95rem; }
+.pv:hover .pv-foto img, .pv:focus-visible .pv-foto img { transform: scale(1.04); }
+.pv.on:hover .pv-btn { filter: brightness(1.08); }
+.pv:focus-visible { outline: 3px solid #ffffff; outline-offset: -3px; border-radius: 0; }
+.pv-crediti { padding: 10px 16px 14px; margin: 0; }
+@media (min-width: 1000px) {
+  .pv-riga-pannelli { overflow: visible; }
+  .pv { flex: 1 1 0; min-width: 0; height: clamp(520px, 72vh, 700px); }
+  .pv-tit { font-size: clamp(2.2rem, 3.3vw, 3.1rem); }
+  .pv-crediti { max-width: 1080px; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .pv-foto img { transition: none; } }
 
 
 /* Titoli grossi della home in Anton, come il logo (26/11/2026): apertura e titoli delle fasce. Anton ha un solo peso (400). */
